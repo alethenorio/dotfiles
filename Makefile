@@ -1,8 +1,9 @@
 .PHONY: all
-all: bin dotfiles ## Installs the bin and etc directory files and the dotfiles.
+all: bin dotfiles etc ## Installs the bin and etc directory files and the dotfiles.
 
 .PHONY: bin
 bin: ## Installs the bin directory files.
+	mkdir -p $(HOME)/bin
 	# add aliases for things in bin
 	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
 		f=$$(basename $$file); \
@@ -24,15 +25,15 @@ dotfiles: ## Installs the dotfiles.
 	mkdir -p $(HOME)/.config;
 	ln -snf $(CURDIR)/.i3 $(HOME)/.config/i3;
 	mkdir -p $(HOME)/.local/share;
-	# ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
-	ln -snf $(CURDIR)/.bash_profile $(HOME)/.profile;
+	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
+	# ln -snf $(CURDIR)/.bash_profile $(HOME)/.profile;
 	# if [ -f /usr/local/bin/pinentry ]; then \
 	# 	sudo ln -snf /usr/bin/pinentry /usr/local/bin/pinentry; \
 	# fi;
 
 .PHONY: etc
 etc: ## Installs the etc directory files.
-	sudo mkdir -p /etc/docker/seccomp
+	# sudo mkdir -p /etc/docker/seccomp
 	for file in $(shell find $(CURDIR)/etc -type f -not -name ".*.swp"); do \
 		f=$$(echo $$file | sed -e 's|$(CURDIR)||'); \
 		sudo ln -f $$file $$f; \
