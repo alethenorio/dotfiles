@@ -49,6 +49,9 @@ bindsym $mod+d exec $menu
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 #for_window [class="Firefox"] floating enable
+#for_window [class="Slack"] floating enable
+for_window [window_role="EMailBrowser"] floating enable
+for_window [class="Pidgin" window_role="conversation"] floating enable
 
 # lock screen
 bindsym $mod+l exec $lockcmd
@@ -98,6 +101,26 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+# Switch between workspaces
+bindsym $mod+Tab workspace back_and_forth
+bindsym Mod1+Tab workspace back_and_forth
+
+bindsym $mod+Ctrl+Left workspace prev_on_output
+bindsym $mod+Ctrl+Right workspace next_on_output
+
+# Assign specific workspace to specific screens
+workspace 1 output DP-1-1-2
+workspace 2 output DP-1-1-2
+workspace 3 output DP-1-1-2
+
+# Assign certain applications to certain workspaces
+#assign [class="Firefox"] 1
+assign [class="Slack"] 3
+assign [class="Code"] 2
+assign [class="Evolution"] 3
+
+
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -178,9 +201,11 @@ bar {
 #    status_command i3status
 }
 
-exec xautolock -time 60 -locker '$lockcmd'
-exec $term
+exec --no-startup-id xautolock -time 60 -locker '$lockcmd'
+exec i3-msg 'workspace 1; exec $term'
+exec evolution
 exec slack
 exec blueman-applet
+exec nm-applet
 exec xrandr --output DP-1-1-2 --primary
 exec --no-startup-id xrandr --output DP-1-1-2 --auto --primary --left-of eDP-1-1

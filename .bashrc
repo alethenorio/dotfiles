@@ -12,7 +12,8 @@ esac
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{bash_prompt,aliases,functions,path,dockerfuncs,extra,exports}; do
+# * ~/.extrafuncs can be used for bash functions you don't want to commit
+for file in ~/.{bash_prompt,aliases,functions,path,dockerfuncs,extra,extrafuncs,exports}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
 		# shellcheck source=/dev/null
 		source "$file"
