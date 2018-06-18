@@ -26,18 +26,22 @@ relies_on(){
 pidgin() {
     local NAME="pidgin"
 
-	del_stopped $NAME
+    del_stopped $NAME
 
+    xhost +SI:localuser:$(id -un)
+   
     docker run -d \
     -v /etc/localtime:/etc/localtime:ro \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e DISPLAY=unix$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    -e DISPLAY \
+    --user=$(id -u):$(id -g) \
+    -e HOME="/tmp" \
     --device /dev/snd \
     --device /dev/dri \
     --device /dev/video0 \
     --group-add audio \
     --group-add video \
-    -v "${HOME}/.purple:/root/.purple" \
+    -v "${HOME}/.purple:/tmp/.purple" \
     --ipc="host" \
     --name $NAME \
     pidgin

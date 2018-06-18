@@ -201,8 +201,9 @@ bar {
 #    status_command i3status
 }
 
-exec --no-startup-id xautolock -time 60 -locker '$lockcmd'
+exec --no-startup-id xautolock -time 2 -locker '$lockcmd'
 exec i3-msg 'workspace 1; exec $term'
+exec pasystray
 exec evolution
 exec slack
 exec blueman-applet
