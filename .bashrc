@@ -49,6 +49,7 @@ done
 if hash kubectl 2>/dev/null; then
 	# shellcheck source=/dev/null
 	source <(kubectl completion bash)
+	source <(kubectl completion bash | sed 's/kubectl/k/g')
 fi
 
 # check the window size after each command and, if necessary,

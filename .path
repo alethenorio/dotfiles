@@ -7,4 +7,4 @@ export GOPATH="${HOME}/go"
 export PATH=/usr/local/bin:/usr/local/go/bin:$HOME/bin:${PATH}:${GOPATH}/bin:${JAVA_HOME}/bin:/opt/google-cloud-sdk/bin:/usr/share/bcc/tools:/sbin
 
 # update cdpath
-export CDPATH=${CDPATH}:${GOPATH}/src/github.com:${GOPATH}/src/golang.org:${GOPATH}/src
+#export CDPATH=${CDPATH}:${GOPATH}/src/github.com:${GOPATH}/src/golang.org:${GOPATH}/src
