@@ -16,3 +16,10 @@ done
 
 alias g="git"
 alias k="kubectl"
+alias watch="watch "
+
+# Decode JWT header
+alias jwth="decodejwt 1"
+
+# Decode JWT Payload
+alias jwtp="decodejwt 2"
