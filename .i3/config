@@ -122,14 +122,14 @@ bindsym --release Shift+Print exec "scrot -s '/home/alethenorio/Pictures/screens
 bindsym $mod+m move workspace to output primary
 
 # Assign specific workspace to specific screens
-workspace 1 output primary
-workspace 2 output primary
-workspace 3 output primary
+#workspace 1 output primary
+#workspace 2 output primary
+#workspace 3 output primary
 
 # Assign certain applications to certain workspaces
 #assign [class="Firefox"] 1
-assign [class="Slack"] 3
-assign [class="Code"] 2
+assign [class="Slack"] 4
+#assign [class="Code"] 2
 assign [class="Evolution"] 3
 
 
