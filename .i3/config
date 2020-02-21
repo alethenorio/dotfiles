@@ -14,6 +14,8 @@ set $term i3-sensible-terminal
 set $menu i3-dmenu-desktop
 set $barcmd py3status
 set $lockcmd ~/bin/lock_screen.sh
+set $screenoff ~/bin/screen_off.sh
+set $mousemove ~/bin/run_with_mouse.sh
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -58,7 +60,7 @@ for_window [class="Remmina"] floating enable
 for_window [class="Pidgin" title=".*audio-video.*"] floating enable
 
 # lock screen
-bindsym $mod+l exec $lockcmd
+bindsym $mod+l exec "$mousemove 10 $lockcmd $screenoff"
 
 # change focus
 bindsym $mod+j focus left
@@ -219,7 +221,7 @@ bar {
 #    status_command i3status
 }
 
-exec --no-startup-id xautolock -time 3 -locker '$lockcmd'
+exec --no-startup-id xautolock -time 3 -locker '$mousemove 10 $screenoff $lockcmd'
 exec i3-msg 'workspace 1; exec $term'
 exec pasystray
 exec evolution
