@@ -1,0 +1,12 @@
+- name: Install APT package
+  become: yes
+  apt:
+    name: docker.io
+    state: latest
+
+- name: Add {{ ansible_user_id }} to docker group
+  become: yes
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes

@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+import sys
+import yaml
+
+from pathlib import Path
+
+
+def can_sudo_without_password():
+    return subprocess.run(['sudo', '--non-interactive', 'whoami'],
+                          stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL).returncode == 0
+
+def ensure_ansible_is_installed():
+    ansible_query = subprocess.run(['dpkg', '-s', 'ansible'],
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.DEVNULL)
+    if ansible_query.returncode == 0:
+        return
+    print('Installing Ansible...', file=sys.stderr)
+    for cmd in [
+        ['apt', 'update'],
+        ['apt', 'install', '-y', 'ansible'],
+    ]:
+        result = subprocess.run(['sudo'] + cmd)
+        if result.returncode != 0:
+            raise Exception('Failed to install Ansible')
+
+
+def main():
+    root_dir = Path(os.path.dirname(os.path.realpath(__file__)))
+    if len(sys.argv) > 1 and sys.argv[1].endswith('.yml'):
+        playbook_path = Path(sys.argv[1])
+        ansible_args = sys.argv[2:]
+    else:
+        playbook_path = root_dir / 'dotfiles.yml'
+        ansible_args = sys.argv[1:]
+    # Build command
+    cmd = ['ansible-playbook', '--inventory', ',localhost']
+    # Only ask for password when necessary
+    if not can_sudo_without_password():
+        cmd += ['--ask-become-pass']
+    cmd += [playbook_path]
+    cmd += ansible_args
+    # Invoke Ansible
+    ensure_ansible_is_installed()
+    env = os.environ.copy()
+    env['ANSIBLE_RETRY_FILES_ENABLED'] = 'False'
+    subprocess.run(cmd, env=env)
+
+
+if __name__ == '__main__':
+    main()
