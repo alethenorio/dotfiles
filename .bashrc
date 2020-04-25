@@ -33,9 +33,9 @@ shopt -s cdspell
 # Enable some Bash 4 features when possible:
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null
-done
+#for option in autocd globstar; do
+#	shopt -s "$option" 2> /dev/null
+#done
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config
 # ignoring wildcards
