@@ -4,3 +4,4 @@
     state: latest
     name:
       - code
+      - firefox
