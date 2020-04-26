@@ -24,6 +24,7 @@ dotfiles: ## Installs the dotfiles.
 	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 	mkdir -p $(HOME)/.config;
 	ln -snf $(CURDIR)/.sway $(HOME)/.config/sway;
+	ln -snf $(CURDIR)/.waybar $(HOME)/.config/waybar;
 	mkdir -p $(HOME)/.local/share;
 	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
 	xrdb -merge $(HOME)/.Xresources || true

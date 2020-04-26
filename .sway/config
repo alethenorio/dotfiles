@@ -4,7 +4,7 @@ set $term urxvt
 set $lockcmd ~/bin/lock_screen.sh
 set $screenoff ~/bin/screen_off.sh
 set $mousemove ~/bin/run_with_mouse.sh
-set $menu rofi -show drun -theme "solarized_alternate" | xargs swaymsg exec --
+set $menu rofi -show drun -theme "solarized_alternate" -sort | xargs swaymsg exec --
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -65,6 +65,10 @@ bindsym $mod+Shift+c reload
 
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+bindsym --locked XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/\* index:/{print $3}') +5%
+bindsym --locked XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/\* index:/{print $3}') -5%
+bindsym --locked XF86AudioMute exec --no-startup-id pactl set-sink-mute $(pacmd list-sinks |awk '/\* index:/{print $3}') toggle
 
 # Move your focus around
 bindsym $mod+Left focus left
