@@ -2,6 +2,8 @@
   connection: local
   vars_files:
     - vars/dirs.yml
+  vars:
+    font_awesome_version: 5.13.0
   tasks:
     - import_tasks: tasks/prerequisites.yml
     - import_role:
@@ -9,4 +11,10 @@
       tags: docker
     - import_role:
         name: apt
-      tags: docker
+      tags: apt
+    - import_role:
+        name: vscode
+      tags: vscode
+    - import_role:
+        name: sway
+      tags: sway

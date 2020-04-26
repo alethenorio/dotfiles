@@ -3,5 +3,17 @@
   apt:
     state: latest
     name:
-      - code
+      - vim
       - firefox
+      - curl
+      - jq
+      - ssh
+      - tree
+      - locate
+
+# Install a snap with classic confinement
+- name: Install slack
+  snap:
+    name: slack
+    state: present
+    classic: yes
