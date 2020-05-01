@@ -6,7 +6,6 @@
       - sway
       - swaylock
       - swayidle
-      - grim
       - bluez
       - rxvt-unicode-256color
       - rofi
