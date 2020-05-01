@@ -8,7 +8,7 @@
       - swayidle
       - bluez
       - rxvt-unicode-256color
-      - rofi
+      - wofi
       - waybar
       - pavucontrol
       - grim

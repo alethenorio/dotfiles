@@ -25,6 +25,7 @@ dotfiles: ## Installs the dotfiles.
 	mkdir -p $(HOME)/.config;
 	ln -snf $(CURDIR)/.sway $(HOME)/.config/sway;
 	ln -snf $(CURDIR)/.waybar $(HOME)/.config/waybar;
+	ln -snf $(CURDIR)/.wofi $(HOME)/.config/wofi;
 	mkdir -p $(HOME)/.local/share;
 	ln -snf $(CURDIR)/.fonts $(HOME)/.local/share/fonts;
 	xrdb -merge $(HOME)/.Xresources || true
