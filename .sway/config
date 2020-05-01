@@ -1,9 +1,6 @@
 # Logo key 
 set $mod Mod4
 set $term urxvt
-set $lockcmd ~/bin/lock_screen.sh
-set $screenoff ~/bin/screen_off.sh
-set $mousemove ~/bin/run_with_mouse.sh
 set $menu rofi -show drun -theme "solarized_alternate" -sort | xargs swaymsg exec --
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -43,6 +40,8 @@ input type:keyboard {
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+
+bindsym $mod+l exec "swaylock -f -c 000000"
 
 # Start a terminal
 bindsym $mod+Return exec $term
@@ -121,6 +120,12 @@ bindsym $mod+mod1+Right move workspace to output right
 bindsym $mod+mod1+Up move workspace to output up
 bindsym $mod+mod1+Down move workspace to output down
 
+# Screenshot the current focused monitor
+bindsym --release Print exec 'grim -o "$(swaymsg -t get_outputs | jq -r ".[] | select(.focused) | .name")" "$(xdg-user-dir PICTURES)/screenshots/$(date +%d%m%Y_%H%M_%s).png"'
+
+# Screenshot select part of screen
+bindsym --release Shift+Print exec 'grim -g "$(slurp)" "$(xdg-user-dir PICTURES)/screenshots/$(date +%d%m%Y_%H%M_%s).png"'
+
 # Switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -192,5 +197,17 @@ bar {
 # Start applications
 exec slack
 
+# Turn off screen after 5 minutes
+# Lock 10 seconds after that
+#exec swayidle -w \
+#         timeout 5 'swaymsg "output * dpms off"' \
+#         timeout 10 'swaylock -f -c 000000' \
+#         resume 'swaymsg "output * dpms on"' \
+#         before-sleep 'swaylock -f -c 000000'
+
 # run the merge for good colors
 exec xrdb -merge $HOME/.Xresources
+
+
+#swayidle -w timeout 5 'swaymsg "output * dpms off"' timeout 10 'swaylock -f -c 000000' resume 'swaymsg "output * dpms on"' \
+#         before-sleep 'swaylock -f -c 000000'
