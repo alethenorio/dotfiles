@@ -4,6 +4,7 @@
     - vars/dirs.yml
   vars:
     font_awesome_version: 5.13.0
+    slack_version: 4.4.2
   tasks:
     - import_tasks: tasks/prerequisites.yml
     - import_role:
@@ -18,3 +19,6 @@
     - import_role:
         name: sway
       tags: sway
+    - import_role:
+        name: slack
+      tags: slack
