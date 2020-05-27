@@ -5,7 +5,7 @@
     // "width": 1366, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
+    "modules-center": ["sway/window", "idle_inhibitor"],
     "modules-right": ["network", "cpu", "memory", "battery", "pulseaudio", "tray", "clock"],
     "sway/workspaces": {
         "disable-scroll": true,
@@ -79,5 +79,12 @@
         "interval": 30, // Remove this if your script is endless and write in loop
         "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null", // Script in resources folder
         "exec-if": "pgrep spotify"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
     }
 }
