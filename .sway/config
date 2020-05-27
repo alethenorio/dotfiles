@@ -1,6 +1,7 @@
 # Logo key 
 set $mod Mod4
 set $term urxvt
+set $lockcmd grim -o "$(swaymsg -t get_outputs | jq -r ".[] | select(.focused) | .name")" - | convert - -filter Gaussian -resize 25% -define filter:sigma=2.5 -resize 500% /tmp/lock.png && swaylock -f -i /tmp/lock.png
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -19,6 +20,11 @@ font pango:Monospace 8
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+# Background wallpaper for all output
+output * bg $HOME/Pictures/background.jpg fill
+
+# Output order for home setup
 output HDMI-A-2 resolution 1920x1080 position 0,0
 output eDP-1 resolution 1920x1080 position 1920,0
 
@@ -30,12 +36,12 @@ input type:keyboard {
 # Turn off display after 5 minutes of inactivity, 1 minute after that if still
 # no activity, lock the screen. Also lock screen before sleeping
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'swaymsg "output * dpms off"' \
          resume 'swaymsg "output * dpms on"' \
-         timeout 360 'swaymsg "output * dpms off"' \
+         timeout 360 'swaylock -f -c 000000' \
          before-sleep 'swaylock -f -c 000000'
 
-bindsym $mod+l exec "swaylock -f -c 000000"
+bindsym $mod+l exec $lockcmd
 
 # Start a terminal
 bindsym $mod+Return exec $term
