@@ -22,3 +22,6 @@
     - import_role:
         name: slack
       tags: slack
+    - import_role:
+        name: qemu
+      tags: qemu
