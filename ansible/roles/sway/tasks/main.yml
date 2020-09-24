@@ -22,3 +22,5 @@
       - slurp
       # imagemagick to blur images for lock screen
       - imagemagick
+      # copy/paste from/to clipboard from terminal
+      - wl-clipboard

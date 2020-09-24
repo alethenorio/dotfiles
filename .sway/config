@@ -33,6 +33,12 @@ input type:keyboard {
     xkb_options grp:alt_shift_toggle
 }
 
+input type:pointer {
+    accel_profile adaptive
+    pointer_accel 0.5
+}
+
+
 # Turn off display after 5 minutes of inactivity, 1 minute after that if still
 # no activity, lock the screen. Also lock screen before sleeping
 exec swayidle -w \
@@ -127,6 +133,9 @@ bindsym --release Print exec 'grim -o "$(swaymsg -t get_outputs | jq -r ".[] | s
 
 # Select part of the screen to take a screenshot with mouse
 bindsym --release Shift+Print exec 'grim -g "$(slurp)" "$(xdg-user-dir PICTURES)/screenshots/$(date +%d%m%Y_%H%M_%s).png"'
+
+# Select part of the screen to take a screenshot with mouse (clipboard)
+bindsym --release Ctrl+Shift+Print exec 'grim -g "$(slurp)" - | wl-copy -n -t "image/png"'
 
 # Switch to workspace
 bindsym $mod+1 workspace 1
