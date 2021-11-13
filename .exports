@@ -26,7 +26,7 @@ DBUS_SESSION_BUS_ADDRESS=unix:path=/var/run/user/$(id -u)/bus;
 
 export TODOTXT_DEFAULT_ACTION=ls
 
-export JAVA_HOME="/opt/jdk-10.0.1"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
 # hidpi for gtk apps
 #export GDK_SCALE=2

@@ -2,4 +2,9 @@
   become: yes
   apt:
     deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-{{ slack_version }}-amd64.deb
-  
+  register: install_result
+  ignore_errors: True
+
+- name: Skip if already installed or fail the play if the previous command did not succeed
+  fail: msg="the command failed {{ install_result }}"
+  when: "install_result.changed == 'false' and 'A later version is already installed' not in install_result.stderr"

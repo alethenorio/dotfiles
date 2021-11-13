@@ -11,3 +11,4 @@
       - tree
       - locate
       - gimp
+      - qemu-system-arm

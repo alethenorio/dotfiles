@@ -23,3 +23,4 @@ alias jwth="decodejwt 1"
 
 # Decode JWT Payload
 alias jwtp="decodejwt 2"
+alias gcurl='curl -H "$(oauth2l header cloud-platform userinfo.email)" -H "Content-Type: application/json" '
