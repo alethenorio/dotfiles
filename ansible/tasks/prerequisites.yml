@@ -1,9 +1,0 @@
-- name: Create required directories
-  tags:
-    - prerequisites
-    - filesystem
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - "{{ config_dir }}"

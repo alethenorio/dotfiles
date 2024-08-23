@@ -1,6 +1,0 @@
-- name: Install APT software
-  become: yes
-  apt:
-    state: latest
-    name:
-      - qemu-kvm
