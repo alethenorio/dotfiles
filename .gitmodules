@@ -1,0 +1,3 @@
+[submodule "einride"]
+	path = einride
+	url = https://github.com/alethenorio/dotfiles-einride
