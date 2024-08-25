@@ -51,6 +51,24 @@ vim.opt.wildmode = "longest:full,full"
 
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+-- Move half a page up/down and center cursor vertically
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- Yank into the system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- Delete without replacing whatever is in the current buffer
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+-- Because Ctrl+C is not the same as Esc
+vim.keymap.set("i", "<C-c>", "<Esc>")
+
+-- Move the whole line up/down
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, {
 	desc = "Open diagnostic [Q]uickfix list",
@@ -79,5 +97,4 @@ vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Sav
 -- open sway terminal
 vim.keymap.set("n", "<leader>ft", function()
 	vim.cmd('!swaymsg exec "alacritty --working-directory ' .. vim.fn.getcwd() .. '", split vertical')
-	return nil
 end, { desc = "Open a terminal in sway" })
