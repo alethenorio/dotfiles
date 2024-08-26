@@ -27,6 +27,7 @@
     kanshi
     slurp
     pamixer
+    pavucontrol
     swayidle
     swaylock
     waybar
