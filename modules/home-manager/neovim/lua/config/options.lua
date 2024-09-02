@@ -10,7 +10,7 @@ vim.g.maplocalleader = ","
 vim.o.formatoptions = "jcroqlnt"
 vim.o.shortmess = "filnxtToOFWIcC"
 vim.opt.breakindent = true
--- vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.conceallevel = 3
 -- vim.opt.confirm = true
@@ -65,6 +65,9 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 -- Because Ctrl+C is not the same as Esc
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- Enter substitute mode for current word
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
 -- Move the whole line up/down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -96,5 +99,6 @@ vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Sav
 
 -- open sway terminal
 vim.keymap.set("n", "<leader>ft", function()
-	vim.cmd('!swaymsg exec "alacritty --working-directory ' .. vim.fn.getcwd() .. '", split vertical')
+	local cmd = { "swaymsg", 'exec "alacritty --working-directory ' .. vim.fn.getcwd() .. '", split vertical' }
+	vim.fn.system(cmd)
 end, { desc = "Open a terminal in sway" })

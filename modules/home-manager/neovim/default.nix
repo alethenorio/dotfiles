@@ -19,6 +19,7 @@ in {
         lua-language-server
         stylua
         terraform-ls
+        yamllint
     ];
     programs = with pkgs; {
         ripgrep.enable = true;
@@ -26,6 +27,7 @@ in {
             enable = true;
             viAlias = true;
             vimAlias = true;
+            # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/nvim-treesitter/generated.nix
             plugins = [
                 # lazy-nix-helper-nvim
                 vimPlugins.catppuccin-nvim
@@ -43,21 +45,39 @@ in {
                 vimPlugins.nui-nvim
                 vimPlugins.alpha-nvim
                 vimPlugins.nvim-cmp
+                # Lazydev is only available in unstable and requires nvim 0.10.0
+                # vimPlugins.lazydev-nvim
                 vimPlugins.luasnip
                 vimPlugins.nvim-lspconfig
                 (vimPlugins.nvim-treesitter.withPlugins (
                     plugins: with plugins; [
                         bash
                         c
+                        css
+                        dockerfile
+                        gitattributes
+                        gitcommit
+                        gitignore
                         go
                         gomod
                         gosum
                         gowork
+                        graphql
+                        hcl
+                        html
                         javascript
                         lua
+                        json
+                        make
+                        markdown
                         nix
+                        proto
                         python
+                        sql
+                        terraform
                         typescript
+                        vimdoc
+                        yaml
                     ]
                 ))
                 # vimPlugins.nvim-treesitter.withAllGrammars
