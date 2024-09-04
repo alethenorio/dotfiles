@@ -6,13 +6,24 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # See https://github.com/NixOS/nixos-hardware/tree/master for details
+      <nixos-hardware/dell/xps/15-9520>
+      <nixos-hardware/dell/xps/15-9520/nvidia>
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Enable OpenGL
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -46,13 +57,13 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
-  # Configure keymap in X11
+  # Configure keymap
   services.xserver = {
-    layout = "se";
-    xkbVariant = "";
+    xkb.layout = "se";
+    xkb.variant = "";
   };
 
   # Configure console keymap
@@ -107,8 +118,8 @@
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "alethenorio";
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "alethenorio";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -127,9 +138,18 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
+    # Enable dconf to work around window decoration issues
+    dconf.enable = true;
   };
 
   # Necessary for Chromecast to work with Chrome

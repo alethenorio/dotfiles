@@ -29,6 +29,7 @@ in
   # environment.
   home.packages = with pkgs; [
     curl
+    discord
     file
     gcc
     gdb
