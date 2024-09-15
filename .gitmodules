@@ -1,3 +1,6 @@
 [submodule "einride"]
 	path = einride
 	url = https://github.com/alethenorio/dotfiles-einride
+[submodule "personal"]
+	path = personal
+	url = https://github.com/alethenorio/dotfiles-personal
