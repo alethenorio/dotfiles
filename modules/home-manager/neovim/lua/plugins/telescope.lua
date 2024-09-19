@@ -37,8 +37,7 @@ return {
 				},
 				project = {
 					base_dirs = {
-						{ path = "/home/alethenorio/code", max_depth = 2 },
-						{ path = "/home/alethenorio/code/einride", max_depth = 2 },
+						{ path = "/home/alethenorio/code", max_depth = 3 },
 					},
 					on_project_selected = function(prompt_bufnr)
 						require("telescope._extensions.project.actions").change_working_directory(prompt_bufnr, false)
