@@ -50,6 +50,13 @@ return {
 
 					map("K", vim.lsp.buf.hover, "[K]")
 
+					vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+						border = "single",
+						close_events = { "CursorMoved", "BufHidden" },
+						focusable = false,
+					})
+					vim.keymap.set("i", "<C-K>", vim.lsp.buf.signature_help)
+
 					-- Jump to the definition of the word under your cursor.
 					--  This is where a variable was first declared, or where a function is defined, etc.
 					--  To jump back, press <C-t>.

@@ -93,7 +93,7 @@
         { command = "slack"; }
         # { command = "swayidle -w timeout 300 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"' timeout 360 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000'"; }
         { command = "swayidle -w timeout 300 'grim -o \"$(swaymsg -t get_outputs | jq -r \".[] | select(.focused) | .name\")\" - | convert - -filter Gaussian -resize 25% -define filter:sigma=2.5 -resize 500% /tmp/lock.png && swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"' timeout 360 'swaylock -f -i /tmp/lock.png' before-sleep 'swaylock -f -i /tmp/lock.png'"; }
-        { command = "swaync"; }
+        # { command = "swaync"; }
       ];
       #output = {
       #  HEADLESS-1 = {

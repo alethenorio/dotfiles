@@ -27,7 +27,6 @@ in {
             enable = true;
             viAlias = true;
             vimAlias = true;
-            # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/nvim-treesitter/generated.nix
             plugins = [
                 # lazy-nix-helper-nvim
                 vimPlugins.catppuccin-nvim
@@ -41,6 +40,7 @@ in {
                 vimPlugins.lazy-nvim
                 vimPlugins.lualine-nvim
                 vimPlugins.neo-tree-nvim
+                vimPlugins.noice-nvim
                 vimPlugins.none-ls-nvim
                 vimPlugins.nui-nvim
                 vimPlugins.alpha-nvim
@@ -48,8 +48,11 @@ in {
                 # Lazydev is only available in unstable and requires nvim 0.10.0
                 # vimPlugins.lazydev-nvim
                 vimPlugins.luasnip
+                vimPlugins.nui-nvim
                 vimPlugins.nvim-lspconfig
+                vimPlugins.nvim-notify
                 (vimPlugins.nvim-treesitter.withPlugins (
+                    # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/nvim-treesitter/generated.nix
                     plugins: with plugins; [
                         bash
                         c
@@ -70,9 +73,11 @@ in {
                         json
                         make
                         markdown
+                        markdown_inline
                         nix
                         proto
                         python
+                        regex
                         sql
                         terraform
                         typescript
