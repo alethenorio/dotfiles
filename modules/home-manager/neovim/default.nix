@@ -46,7 +46,6 @@ in {
                 vimPlugins.lualine-nvim
                 vimPlugins.neo-tree-nvim
                 vimPlugins.noice-nvim
-                vimPlugins.none-ls-nvim
                 vimPlugins.nui-nvim
                 vimPlugins.alpha-nvim
                 vimPlugins.nvim-cmp
