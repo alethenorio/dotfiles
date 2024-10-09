@@ -174,5 +174,8 @@
         };
       };
     };
+    extraConfig = ''
+      primary_selection disabled
+    '';
   };
 }
