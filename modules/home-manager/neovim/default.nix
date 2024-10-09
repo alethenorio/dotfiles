@@ -19,7 +19,10 @@ in {
         gopls
         lua-language-server
         stylua
+        terraform
         terraform-ls
+        yaml-language-server
+        yamlfmt
         yamllint
     ];
     programs = with unstable.pkgs; {

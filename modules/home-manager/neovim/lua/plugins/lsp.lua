@@ -67,8 +67,6 @@ return {
 				require("lspconfig")[server].setup(final_server_opts)
 			end
 
-			require("lspconfig").terraformls.setup({ capabilities = capabilities })
-
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
