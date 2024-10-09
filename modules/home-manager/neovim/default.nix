@@ -15,6 +15,7 @@ let
   };
 in {
     home.packages = with pkgs; [
+        actionlint
         fd
         gopls
         lua-language-server
@@ -34,6 +35,7 @@ in {
             vimAlias = true;
             plugins = [
                 # lazy-nix-helper-nvim
+                vimPlugins.alpha-nvim
                 vimPlugins.catppuccin-nvim
                 vimPlugins.cmp_luasnip
                 vimPlugins.cmp-buffer
@@ -43,16 +45,16 @@ in {
                 vimPlugins.conform-nvim
                 vimPlugins.friendly-snippets
                 vimPlugins.lazy-nvim
+                unstable.pkgs.vimPlugins.lazydev-nvim
                 vimPlugins.lualine-nvim
                 vimPlugins.neo-tree-nvim
                 vimPlugins.noice-nvim
                 vimPlugins.nui-nvim
-                vimPlugins.alpha-nvim
                 vimPlugins.nvim-cmp
                 # Lazydev is only available in unstable and requires nvim 0.10.0
-                unstable.pkgs.vimPlugins.lazydev-nvim
                 vimPlugins.luasnip
                 vimPlugins.nui-nvim
+                vimPlugins.nvim-lint
                 vimPlugins.nvim-lspconfig
                 vimPlugins.nvim-notify
                 (vimPlugins.nvim-treesitter.withPlugins (

@@ -12,6 +12,16 @@ return {
 	},
 
 	{
+		"mfussenegger/nvim-lint",
+		opts = {
+			linters_by_ft = {
+				terraform = { "terraform_validate", "tflint", "tfsec" },
+				tf = { "terraform_validate", "tflint", "tfsec" },
+			},
+		},
+	},
+
+	{
 		"neovim/nvim-lspconfig",
 		opts = {
 			servers = {
