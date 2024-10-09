@@ -1,6 +1,7 @@
 { config, pkgs, lib, ...}:
 
 let
+  unstable = import <unstable> {};
   which-key-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "which-key.nvim";
     version = "v3.13.2";
@@ -21,10 +22,11 @@ in {
         terraform-ls
         yamllint
     ];
-    programs = with pkgs; {
+    programs = with unstable.pkgs; {
         ripgrep.enable = true;
         neovim = {
             enable = true;
+            package = unstable.pkgs.neovim-unwrapped;
             viAlias = true;
             vimAlias = true;
             plugins = [
@@ -46,7 +48,7 @@ in {
                 vimPlugins.alpha-nvim
                 vimPlugins.nvim-cmp
                 # Lazydev is only available in unstable and requires nvim 0.10.0
-                # vimPlugins.lazydev-nvim
+                unstable.pkgs.vimPlugins.lazydev-nvim
                 vimPlugins.luasnip
                 vimPlugins.nui-nvim
                 vimPlugins.nvim-lspconfig

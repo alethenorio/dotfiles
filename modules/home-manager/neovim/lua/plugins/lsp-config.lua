@@ -2,43 +2,71 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
-				on_init = function(client)
-					local path = client.workspace_folders[1].name
-					if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-						return
+		opts = {
+			servers = {
+				-- -- Example LSP settings below:
+				-- lua_ls = {
+				--   cmd = { ... },
+				--   filetypes = { ... },
+				--   capabilities = { ... },
+				--   on_attach = { ... },
+				--   settings = {
+				--     Lua = {
+				--       workspace = {
+				--         checkThirdParty = false,
+				--       },
+				--       codeLens = {
+				--         enable = true,
+				--       },
+				--       completion = {
+				--         callSnippet = "Replace",
+				--       },
+				--     },
+				--   },
+				-- },
+			},
+		},
+		config = function(_, opts)
+			-- LSP servers and clients are able to communicate to each other what features they support.
+			-- By default, Neovim doesn't support everything that is in the LSP Specification.
+			-- When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+			-- So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+			local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- The nvim-cmp almost supports LSP's capabilities so you should advertise it to LSP servers..
+			local completion_capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = vim.tbl_deep_extend("force", client_capabilities, completion_capabilities)
+
+			for server, server_opts in pairs(opts.servers) do
+				local defaults = {}
+				defaults.capabilities = capabilities
+				-- TODO: This seems to keep refreshing code lens. Need to figure out more details
+				--defaults.on_attach = function(client, bufnr)
+				--	if client.supports_method("textDocument/codeLens") then
+				--		vim.lsp.codelens.refresh()
+				--		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+				--			buffer = bufnr,
+				--			callback = vim.lsp.codelens.refresh,
+				--		})
+				--	end
+				--end
+
+				-- merge defaults with user settings for this LSP server
+				-- NOTE: this could technically overwrite the defaults, like capabilities or on_attach.
+				local final_server_opts = vim.tbl_deep_extend("force", defaults, server_opts or {})
+
+				-- FIXME: workaround for https://github.com/neovim/neovim/issues/28058
+				for _, v in pairs(server_opts) do
+					if type(v) == "table" and v.workspace then
+						v.workspace.didChangeWatchedFiles = {
+							dynamicRegistration = false,
+							relativePatternSupport = false,
+						}
 					end
+				end
 
-					client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-						runtime = {
-							-- Tell the language server which version of Lua you're using
-							-- (most likely LuaJIT in the case of Neovim)
-							version = "LuaJIT",
-						},
-						-- Make the server aware of Neovim runtime files
-						workspace = {
-							checkThirdParty = false,
-							library = {
-								vim.env.VIMRUNTIME,
-								-- Depending on the usage, you might want to add additional paths here.
-								-- "${3rd}/luv/library"
-								-- "${3rd}/busted/library",
-							},
-							-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-							-- library = vim.api.nvim_get_runtime_file("", true)
-						},
-					})
-				end,
-				settings = {
-					Lua = {},
-				},
-			})
+				require("lspconfig")[server].setup(final_server_opts)
+			end
 
-			require("lspconfig").gopls.setup({ capabilities = capabilities })
 			require("lspconfig").terraformls.setup({ capabilities = capabilities })
 
 			vim.api.nvim_create_autocmd("LspAttach", {

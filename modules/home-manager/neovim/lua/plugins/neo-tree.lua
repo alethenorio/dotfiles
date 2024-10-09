@@ -49,6 +49,6 @@ return {
 		},
 	},
 	init = function()
-		vim.keymap.set("n", "<C-b>", ":Neotree filesystem toggle left<CR>", {})
+		vim.keymap.set("n", "<C-b>", ":Neotree filesystem toggle left<CR>", { silent = true })
 	end,
 }

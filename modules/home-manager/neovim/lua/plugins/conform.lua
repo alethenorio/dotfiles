@@ -13,12 +13,6 @@ return {
 				desc = "[F]ormat buffer",
 			},
 		},
-		opts = {
-			notify_on_error = false,
-			formatters_by_ft = {
-				lua = { "stylua" },
-			},
-		},
 		config = function(_, opts)
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				pattern = "*",

@@ -7,6 +7,7 @@ return {
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-project.nvim" },
+			{ "folke/persistence.nvim" },
 		},
 		opts = {
 			defaults = {
@@ -40,7 +41,9 @@ return {
 						{ path = "/home/alethenorio/code", max_depth = 3 },
 					},
 					on_project_selected = function(prompt_bufnr)
+						require("persistence").save()
 						require("telescope._extensions.project.actions").change_working_directory(prompt_bufnr, false)
+						require("persistence").load()
 					end,
 				},
 			},

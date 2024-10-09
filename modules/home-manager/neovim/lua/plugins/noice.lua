@@ -39,7 +39,7 @@ return {
 							cond = function()
 								return package.loaded["noice"] and require("noice").api.status.mode.has()
 							end,
-							--   color = require("utils.colors").fgcolor("Constant"),
+							color = { fg = "#ff9e64" },
 						},
 					}
 				end,

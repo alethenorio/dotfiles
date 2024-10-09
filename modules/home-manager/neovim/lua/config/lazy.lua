@@ -1,7 +1,10 @@
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
+		-- Import Plugins
 		{ import = "plugins" },
+		-- Import language specific configs
+		{ import = "lang" },
 	},
 	dev = {
 		path = vim.g.nix_packages_path,
