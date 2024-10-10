@@ -43,7 +43,7 @@ return {
 		opts = {
 			linters_by_ft = {
 				gha = { "actionlint" },
-				yaml = { "yamlllint" },
+				yaml = { "yamllint" },
 			},
 			linters = {
 				yamllint = {
