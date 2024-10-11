@@ -44,6 +44,7 @@ in {
                 vimPlugins.cmp-path
                 vimPlugins.conform-nvim
                 vimPlugins.friendly-snippets
+                vimPlugins.FTerm-nvim
                 vimPlugins.lazy-nvim
                 unstable.pkgs.vimPlugins.lazydev-nvim
                 vimPlugins.lualine-nvim
