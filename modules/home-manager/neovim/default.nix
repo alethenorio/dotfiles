@@ -22,6 +22,8 @@ in {
         stylua
         terraform
         terraform-ls
+        tflint
+        trivy
         yaml-language-server
         yamlfmt
         yamllint
