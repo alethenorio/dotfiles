@@ -39,16 +39,15 @@ return {
 			for server, server_opts in pairs(opts.servers) do
 				local defaults = {}
 				defaults.capabilities = capabilities
-				-- TODO: This seems to keep refreshing code lens. Need to figure out more details
-				--defaults.on_attach = function(client, bufnr)
-				--	if client.supports_method("textDocument/codeLens") then
-				--		vim.lsp.codelens.refresh()
-				--		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-				--			buffer = bufnr,
-				--			callback = vim.lsp.codelens.refresh,
-				--		})
-				--	end
-				--end
+				defaults.on_attach = function(client, bufnr)
+					if client.supports_method("textDocument/codeLens") then
+						vim.lsp.codelens.refresh()
+						vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+							buffer = bufnr,
+							callback = vim.lsp.codelens.refresh,
+						})
+					end
+				end
 
 				-- merge defaults with user settings for this LSP server
 				-- NOTE: this could technically overwrite the defaults, like capabilities or on_attach.
@@ -119,6 +118,9 @@ return {
 					-- Execute a code action, usually your cursor needs to be on top of an error
 					-- or a suggestion from your LSP for this to activate.
 					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
+					-- Show the available code actions for the word under your cursor
+					map("<leader>cc", vim.lsp.codelens.run, "[C]ode [C]odelens")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
