@@ -65,7 +65,9 @@ return {
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-			vim.keymap.set("n", "<leader>P", extensions.project.project, { desc = "[P]rojects" })
+			vim.keymap.set("n", "<leader>P", function()
+				extensions.project.project({ display_type = "full", hide_workspace = true })
+			end, { desc = "[P]rojects" })
 		end,
 	},
 }

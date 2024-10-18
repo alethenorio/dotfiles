@@ -11,6 +11,7 @@ return {
 
 	{
 		"neovim/nvim-lspconfig",
+		ft = { "lua" },
 		dependencies = {
 			{
 				"folke/lazydev.nvim",
@@ -54,7 +55,6 @@ return {
 				end,
 			},
 		},
-		ft = { "lua" },
 		opts = function(_, opts)
 			opts.servers["lua_ls"] = {
 				settings = {
