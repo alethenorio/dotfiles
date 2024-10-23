@@ -18,7 +18,11 @@ in
   home.packages = with pkgs; [
     actionlint
     fd
+    gci
+    gofumpt
+    golines
     gopls
+    gotools
     lua-language-server
     nil
     nixfmt-rfc-style
