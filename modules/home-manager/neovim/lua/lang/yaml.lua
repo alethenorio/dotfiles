@@ -49,7 +49,10 @@ return {
 			},
 			linters = {
 				yamllint = {
-					append_args = { "-d", "{extends: default, rules: {line-length: disable}}" },
+					append_args = {
+						"-d",
+						"{extends: default, rules: {line-length: disable, document-start: disable, comments: {min-spaces-from-content: 1}}}",
+					},
 				},
 			},
 		},
