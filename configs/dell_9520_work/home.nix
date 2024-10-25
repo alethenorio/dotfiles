@@ -1,6 +1,11 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
-  unstable = import <unstable> {};
+  unstable = import <unstable> { };
 in
 {
   imports = [
@@ -28,8 +33,8 @@ in
 
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "1"; # enable wayland support in firefox
-  #  XDG_CURRENT_DESKTOP = "sway";
-  #  _JAVA_AWT_WM_NONREPARENTING = "1";
+    #  XDG_CURRENT_DESKTOP = "sway";
+    #  _JAVA_AWT_WM_NONREPARENTING = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
     # TODO: Enable Ozone Electron support when VS Code does not break keybindings.
     # See https://github.com/microsoft/vscode/issues/127932 for details
@@ -38,9 +43,10 @@ in
 
   # Add Go bin directory to $PATH
   # Add local bin directory to $PATH
-  home.sessionPath = [ "~/go/bin" "~/bin" ];
-
-
+  home.sessionPath = [
+    "~/go/bin"
+    "~/bin"
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -83,7 +89,13 @@ in
     jq
     ko
     logiops
-    (nerdfonts.override {fonts = ["SourceCodePro" "FiraCode" "Noto"];})
+    (nerdfonts.override {
+      fonts = [
+        "SourceCodePro"
+        "FiraCode"
+        "Noto"
+      ];
+    })
     netcat-gnu
     nethogs
     nix-tree
@@ -98,7 +110,7 @@ in
     # (python311.withPackages (p: [
     #   grpcio
     # ]))
-    (python311.withPackages(ps: with ps; [ grpcio-tools ]))
+    (python311.withPackages (ps: with ps; [ grpcio-tools ]))
     # (python311.withPackages python-packages)
     slack
     speedtest-cli
@@ -126,22 +138,21 @@ in
   nixpkgs.overlays = [
     (self: super: {
       # Better support for wayland in Slack
-      slack  = super.slack.overrideAttrs (old: {
-        installPhase = old.installPhase + ''
-          rm $out/bin/slack
+      slack = super.slack.overrideAttrs (old: {
+        installPhase =
+          old.installPhase
+          + ''
+            rm $out/bin/slack
 
-          makeWrapper $out/lib/slack/slack $out/bin/slack \
-          --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-          --prefix PATH : ${lib.makeBinPath [pkgs.xdg-utils]} \
-          --prefix NIXOS_OZONE_WL : "1" \
-          --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
-        '';
+            makeWrapper $out/lib/slack/slack $out/bin/slack \
+            --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
+            --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-utils ]} \
+            --prefix NIXOS_OZONE_WL : "1" \
+            --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
+          '';
       });
-      yarn = super.yarn.override {
-        nodejs = pkgs.nodejs_20;
-      };
-    }
-    )
+      yarn = super.yarn.override { nodejs = pkgs.nodejs_20; };
+    })
   ];
 
   programs = {
@@ -167,8 +178,11 @@ in
     };
     go = {
       enable = true;
-      package = unstable.pkgs.go_1_21;
-      goPrivate = [ "github.com/einride" "go.einride.tech" ];
+      package = unstable.pkgs.go_1_23;
+      goPrivate = [
+        "github.com/einride"
+        "go.einride.tech"
+      ];
       goPath = "go";
       goBin = "go/bin";
     };
@@ -177,7 +191,7 @@ in
     };
     # password store is required to get pass secret keyring to work
     # See https://inconclusive.medium.com/sharing-passwords-with-git-gpg-and-pass-628c2db2a9de for initialization
-    password-store =  {
+    password-store = {
       enable = true;
     };
     vscode = {
