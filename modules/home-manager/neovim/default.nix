@@ -71,6 +71,7 @@ in
         vimPlugins.nvim-lint
         vimPlugins.nvim-lspconfig
         vimPlugins.nvim-notify
+        vimPlugins.SchemaStore-nvim
         (vimPlugins.nvim-treesitter.withPlugins (
           # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/nvim-treesitter/generated.nix
           plugins: with plugins; [
