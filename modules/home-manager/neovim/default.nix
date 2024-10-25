@@ -107,6 +107,7 @@ in
           ]
         ))
         # vimPlugins.nvim-treesitter.withAllGrammars
+        vimPlugins.nvim-treesitter-context
         vimPlugins.nvim-treesitter-parsers.terraform
         vimPlugins.nvim-web-devicons
         vimPlugins.persistence-nvim
