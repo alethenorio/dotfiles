@@ -2,22 +2,24 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
-let
-  CONFIG_DIR = builtins.toString ./.;
-in {
-  imports =
-    [ # Include the results of the hardware scan.
+{
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../einride/modules/nixos
-    ];
+    ../../modules/nixos/home-printer
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.blacklistedKernelModules = [ "nouveau" "nvidia" ];
+  boot.blacklistedKernelModules = [
+    "nouveau"
+    "nvidia"
+  ];
 
   hardware.opengl = {
     enable = true;
@@ -83,8 +85,18 @@ in {
           "bluez5.enable-sbc-xq" = true;
           "bluez5.enable-msbc" = true;
           "bluez5.enable-hw-volume" = true;
-          "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
-          "bluez5.auto-connect" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+          "bluez5.roles" = [
+            "hsp_hs"
+            "hsp_ag"
+            "hfp_hf"
+            "hfp_ag"
+          ];
+          "bluez5.auto-connect" = [
+            "hsp_hs"
+            "hsp_ag"
+            "hfp_hf"
+            "hfp_ag"
+          ];
           "device.profile" = "headset-head-uni";
         };
       };
@@ -97,7 +109,7 @@ in {
   };
 
   # Allow swaylock to unlock the computer for us
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 
   # Enable xdg-desktop-portal-wlr for screen sharing
   # to work in Wayland with Sway
@@ -107,7 +119,7 @@ in {
         enable = true;
       };
       config.sway.default = "wlr";
-#      gtkUsePortal = true;
+      # gtkUsePortal = true;
     };
   };
 
@@ -128,13 +140,25 @@ in {
   users.users.alethenorio = {
     isNormalUser = true;
     home = "/home/alethenorio";
-    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "dialout" "plugdev" "adbusers" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+      "wireshark"
+      "dialout"
+      "plugdev"
+      "adbusers"
+    ];
   };
 
-  security.sudo.extraRules= [
-    {  users = [ "alethenorio" ];
+  security.sudo.extraRules = [
+    {
+      users = [ "alethenorio" ];
       commands = [
-         { command = "/run/current-system/sw/bin/ls" ; options= [ "NOPASSWD" ]; }
+        {
+          command = "/run/current-system/sw/bin/ls";
+          options = [ "NOPASSWD" ];
+        }
       ];
     }
   ];
@@ -153,27 +177,27 @@ in {
     gparted
     jwt-cli
     killall
-    (
-      vim_configurable.customize {
-        # Specifies the vim binary name.
-        # E.g. set this to "my-vim" and you need to type "my-vim" to open this vim
-        # This allows to have multiple vim packages installed (e.g. with a different set of plugins)
-        name = "vim";
-        vimrcConfig.customRC = ''
-          syntax on
-          set mouse-=a
-          set backspace=indent,eol,start
-        '';
-        vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-        vimrcConfig.vam.pluginDictionaries = [{
+    (vim_configurable.customize {
+      # Specifies the vim binary name.
+      # E.g. set this to "my-vim" and you need to type "my-vim" to open this vim
+      # This allows to have multiple vim packages installed (e.g. with a different set of plugins)
+      name = "vim";
+      vimrcConfig.customRC = ''
+        syntax on
+        set mouse-=a
+        set backspace=indent,eol,start
+      '';
+      vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
+      vimrcConfig.vam.pluginDictionaries = [
+        {
           names = [
             "vim-sensible" # sane defaults
-#            "vim-addon-nix"
+            # "vim-addon-nix"
           ];
           ft_regex = "^nix\$";
-        }];
-      }
-    )
+        }
+      ];
+    })
     wget
   ];
 
@@ -224,4 +248,3 @@ in {
   system.stateVersion = "22.11"; # Did you read the comment?
 
 }
-
