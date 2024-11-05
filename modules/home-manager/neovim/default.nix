@@ -2,6 +2,7 @@
 
 let
   unstable = import <unstable> { };
+  vtslsNodePackage = (pkgs.callPackage ../vtsls/default.nix { });
   which-key-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "which-key.nvim";
     version = "v3.13.2";
@@ -17,6 +18,7 @@ in
 {
   home.packages = with pkgs; [
     actionlint
+    eslint_d
     fd
     gci
     gofumpt
@@ -26,11 +28,13 @@ in
     lua-language-server
     nil
     nixfmt-rfc-style
+    prettierd
     stylua
     terraform
     terraform-ls
     tflint
     trivy
+    vtslsNodePackage."@vtsls/language-server"
     yaml-language-server
     yamlfmt
     yamllint
