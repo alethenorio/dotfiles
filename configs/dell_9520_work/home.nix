@@ -84,6 +84,7 @@ in
     gnupg
     graphviz
     hwinfo
+    htop
     imagemagick
     inkscape
     jq
