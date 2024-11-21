@@ -77,4 +77,27 @@ return {
 			},
 		},
 	},
+	{
+		"nvim-neotest/neotest",
+		ft = { "go" },
+		dependencies = {
+			{
+				"fredrikaverpil/neotest-golang",
+			},
+		},
+
+		opts = function(_, opts)
+			opts.adapters = opts.adapters or {}
+			opts.adapters["neotest-golang"] = {
+				go_test_args = {
+					"-v",
+					"-count=1",
+					"-race",
+					"-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
+					-- "-p=1",
+					"-parallel=1",
+				},
+			}
+		end,
+	},
 }
