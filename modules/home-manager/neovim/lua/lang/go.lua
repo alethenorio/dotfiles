@@ -100,4 +100,64 @@ return {
 			}
 		end,
 	},
+	{
+		"mfussenegger/nvim-dap",
+		ft = { "go" },
+		opts = {
+			adapters = {
+				delve = function(callback, config)
+					if config.mode == "remote" and config.request == "attach" then
+						callback({
+							type = "server",
+							host = config.host or "127.0.0.1",
+							port = config.port or "38697",
+						})
+					else
+						local goModDir = vim.fs.root(0, "go.mod")
+						if goModDir == "" or goModDir == nil then
+							goModDir = vim.fn.getcwd()
+						end
+						print(goModDir)
+						callback({
+							type = "server",
+							port = "${port}",
+							executable = {
+								command = "dlv",
+								args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-output=dap" },
+								options = {
+									cwd = goModDir,
+									detached = vim.fn.has("win32") == 0,
+								},
+							},
+						})
+					end
+				end,
+			},
+			configurations = {
+				go = {
+					{
+						type = "delve",
+						name = "Debug",
+						request = "launch",
+						program = "${file}",
+					},
+					{
+						type = "delve",
+						name = "Debug test", -- configuration for debugging test files
+						request = "launch",
+						mode = "test",
+						program = "${file}",
+					},
+					-- works with go.mod packages and sub packages
+					{
+						type = "delve",
+						name = "Debug test (go.mod)",
+						request = "launch",
+						mode = "test",
+						program = "./${relativeFileDirname}",
+					},
+				},
+			},
+		},
+	},
 }

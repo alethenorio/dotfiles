@@ -18,12 +18,13 @@ in
 {
   home.packages = with pkgs; [
     actionlint
+    unstable.delve
     eslint_d
     fd
     gci
     gofumpt
     golines
-    gopls
+    unstable.gopls
     gotools
     lua-language-server
     nil
@@ -68,6 +69,9 @@ in
         vimPlugins.noice-nvim
         vimPlugins.nui-nvim
         vimPlugins.nvim-cmp
+        vimPlugins.nvim-dap
+        vimPlugins.nvim-dap-go
+        vimPlugins.nvim-dap-ui
         vimPlugins.nvim-nio
         # Lazydev is only available in unstable and requires nvim 0.10.0
         vimPlugins.luasnip
