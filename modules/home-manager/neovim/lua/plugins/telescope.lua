@@ -41,9 +41,19 @@ return {
 						{ path = "/home/alethenorio/code", max_depth = 3 },
 					},
 					on_project_selected = function(prompt_bufnr)
-						require("persistence").save()
-						require("telescope._extensions.project.actions").change_working_directory(prompt_bufnr, false)
-						require("persistence").load()
+						if vim.g.projectcwd then
+							require("persistence").save()
+							require("telescope._extensions.project.actions").change_working_directory(
+								prompt_bufnr,
+								false
+							)
+							require("persistence").load()
+						else
+							local builtin = require("telescope.builtin")
+							local path =
+								require("telescope._extensions.project.actions").get_selected_path(prompt_bufnr)
+							builtin.find_files({ cwd = path })
+						end
 					end,
 				},
 			},
@@ -66,6 +76,11 @@ return {
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 			vim.keymap.set("n", "<leader>P", function()
+				extensions.project.project({ display_type = "full", hide_workspace = true })
+				vim.g.projectcwd = true
+			end, { desc = "[P]rojects" })
+			vim.keymap.set("n", "<leader>fp", function()
+				vim.g.projectcwd = false
 				extensions.project.project({ display_type = "full", hide_workspace = true })
 			end, { desc = "[P]rojects" })
 		end,
