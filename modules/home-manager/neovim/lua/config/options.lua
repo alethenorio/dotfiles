@@ -29,7 +29,8 @@ vim.opt.pumblend = 10
 vim.opt.pumheight = 15
 vim.opt.relativenumber = true
 vim.opt.scrolloff = 8
-vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
+-- restore only some things from the last session, to avoid restoring e.g. blank buffers
+vim.opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal"
 vim.opt.shiftround = true
 vim.opt.shiftwidth = indent
 vim.opt.showmode = false
