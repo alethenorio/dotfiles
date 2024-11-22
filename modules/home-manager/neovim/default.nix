@@ -18,6 +18,9 @@ in
 {
   home.packages = with pkgs; [
     actionlint
+    # use unstable because buf 1.45.0 which contains
+    # the buf LSP is not yet available in stable
+    unstable.pkgs.buf
     unstable.delve
     eslint_d
     fd
