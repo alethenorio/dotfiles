@@ -1,5 +1,4 @@
-
-{ config, pkgs, lib, ...}:
+{ ... }:
 
 {
   programs = {
@@ -9,9 +8,9 @@
       userEmail = "2749771+alethenorio@users.noreply.github.com";
       aliases = {
         # Get the current branch name (not so useful in itself, but used in other aliases)
-	      branch-name = "!git rev-parse --abbrev-ref HEAD";
+        branch-name = "!git rev-parse --abbrev-ref HEAD";
         # Push the current branch to the remote "origin", and set it to track the upstream branch
-	      publish = "!git push -u origin $(git branch-name)";
+        publish = "!git push -u origin $(git branch-name)";
         recent = "branch --sort=-committerdate --format=\"%(committerdate:relative)%09%(refname:short)\"";
       };
       extraConfig = {
@@ -24,15 +23,25 @@
         merge = {
           tool = "vanillavim";
         };
+        branch = {
+          sort = "-committerdate";
+        };
         help = {
           autocorrect = 1;
         };
         rebase = {
           autosquash = true;
+          updateRefs = true;
         };
         diff = {
           # Detect copies as well as renames
-	        renames = 1;
+          renames = 1;
+          colorMoved = true;
+        };
+        rerere = {
+          # Enables recording of merge conflicts and automatically
+          # reusing resolution next time it sees the same conflict
+          enabled = true;
         };
       };
     };
