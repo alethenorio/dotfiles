@@ -50,6 +50,7 @@ in
       package = unstable.pkgs.neovim-unwrapped;
       viAlias = true;
       vimAlias = true;
+      # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/applications/editors/vim/plugins/generated.nix
       plugins = [
         # lazy-nix-helper-nvim
         vimPlugins.alpha-nvim
@@ -66,6 +67,7 @@ in
         vimPlugins.lazy-nvim
         unstable.pkgs.vimPlugins.lazydev-nvim
         vimPlugins.lualine-nvim
+        vimPlugins.luvit-meta
         vimPlugins.neo-tree-nvim
         vimPlugins.neotest
         vimPlugins.neotest-golang
