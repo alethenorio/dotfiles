@@ -27,6 +27,14 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
+  # In order to use a login manager (which needs to be done at system level),
+  # we enable Sway at system level however as per https://nixos.wiki/wiki/Sway#Installation
+  # the one configured at user level (through home-manager) is the one that gets used.
+  programs.sway.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+  };
+
   # Experimental power management
   # Disable KDE default power-profiles daemon as it conflicts with auto-cpufreq
   systemd.services.power-profiles-daemon.enable = false;
@@ -110,6 +118,9 @@
   # Allow swaylock to unlock the computer for us
   security.pam.services.swaylock = { };
 
+  # Polkit is needed to configure Sway through home-manager
+  security.polkit.enable = true;
+
   # Enable xdg-desktop-portal-wlr for screen sharing
   # to work in Wayland with Sway
   xdg = {
@@ -117,7 +128,7 @@
       wlr = {
         enable = true;
       };
-      config.sway.default = "wlr";
+      # config.sway.default = "wlr";
       # gtkUsePortal = true;
     };
   };
