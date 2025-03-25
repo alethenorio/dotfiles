@@ -4,6 +4,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		-- set go specific options
 		vim.opt_local.tabstop = 2
 		vim.opt_local.shiftwidth = 2
+		vim.opt_local.colorcolumn = "120"
 	end,
 })
 
@@ -14,7 +15,12 @@ return {
 		ft = { "go", "gomod", "gowork", "gotmpl" },
 		opts = {
 			formatters_by_ft = {
-				go = { "gofumpt", "goimports", "gci", "golines" },
+				go = {
+					"gofumpt",
+					"goimports",
+					"gci",
+					"golines",
+				},
 			},
 			formatters = {
 				gofumpt = {

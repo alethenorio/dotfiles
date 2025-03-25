@@ -158,12 +158,15 @@
             "XF86MonBrightnessUp" = "exec sudo light -A 10";
             "XF86MonBrightnessDown" = "exec sudo light -U 10";
             # Screenshot the current focused monitor
-            "--release Print" = "exec 'grim -o \"$(swaymsg -t get_outputs | jq -r \".[] | select(.focused) | .name\")\" \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\" && xdg-open \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\"'";
+            "--release Print" =
+              "exec 'grim -o \"$(swaymsg -t get_outputs | jq -r \".[] | select(.focused) | .name\")\" \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\" && xdg-open \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\"'";
             # Select part of the screen with the mouse to take a screenshot directly to the clipboard
             "--release Ctrl+Shift+Print" = "exec 'grim -g \"$(slurp)\" - | wl-copy -n -t \"image/png\"'";
             # Select part of the screen with the mouse to take a screenshot
-            "--release Shift+Print" = "exec 'grim -g \"$(slurp)\" \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\"'";
-            "${modifier}+l" = "exec 'grim -o \"$(swaymsg -t get_outputs | jq -r \".[] | select(.focused) | .name\")\" - | convert - -filter Gaussian -resize 25% -define filter:sigma=2.5 -resize 500% /tmp/lock.png && swaylock -f -i /tmp/lock.png'";
+            "--release Shift+Print" =
+              "exec 'grim -g \"$(slurp)\" \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\"'";
+            "${modifier}+l" =
+              "exec 'grim -o \"$(swaymsg -t get_outputs | jq -r \".[] | select(.focused) | .name\")\" - | convert - -filter Gaussian -resize 25% -define filter:sigma=2.5 -resize 500% /tmp/lock.png && swaylock -f -i /tmp/lock.png'";
             "${modifier}+0" = "workspace number 0";
             "${modifier}+Shift+0" = "move container to workspace number 0";
             "${modifier}+asterisk" = "workspace number 0";

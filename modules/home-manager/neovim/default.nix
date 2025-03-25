@@ -123,6 +123,7 @@ in
         # vimPlugins.nvim-treesitter.withAllGrammars
         vimPlugins.nvim-treesitter-context
         vimPlugins.nvim-treesitter-parsers.terraform
+        vimPlugins.trouble-nvim
         vimPlugins.nvim-web-devicons
         vimPlugins.persistence-nvim
         vimPlugins.plenary-nvim
