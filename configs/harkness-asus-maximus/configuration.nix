@@ -64,10 +64,11 @@ in
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
-  # services.xserver.xkb = {
-  #   layout = "se";
-  #   variant = "";
-  # };
+  services.xserver.xkb = {
+    layout = "se";
+    variant = "";
+  };
+
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
