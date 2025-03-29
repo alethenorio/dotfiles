@@ -1,6 +1,7 @@
 return {
 	{
 		"numToStr/FTerm.nvim",
+		enabled = false,
 		event = "VeryLazy",
 		opts = {},
 		config = function(_, opts)

@@ -57,6 +57,13 @@ return {
 		},
 		opts = function(_, opts)
 			opts.servers["lua_ls"] = {
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = false,
+						},
+					},
+				},
 				settings = {
 					Lua = {
 						runtime = {

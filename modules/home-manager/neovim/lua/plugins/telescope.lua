@@ -1,9 +1,10 @@
 return {
-	{ "nvim-telescope/telescope-ui-select.nvim" },
-	{ "nvim-telescope/telescope-fzf-native.nvim" },
+	{ "nvim-telescope/telescope-ui-select.nvim", enabled = false },
+	{ "nvim-telescope/telescope-fzf-native.nvim", enabled = false },
 	{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 	{
 		"nvim-telescope/telescope.nvim",
+		enabled = false,
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-project.nvim" },

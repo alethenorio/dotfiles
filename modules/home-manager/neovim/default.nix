@@ -127,6 +127,7 @@ in
         vimPlugins.nvim-web-devicons
         vimPlugins.persistence-nvim
         vimPlugins.plenary-nvim
+        vimPlugins.snacks-nvim
         # vimPlugins.project-nvim
         vimPlugins.telescope-file-browser-nvim
         vimPlugins.telescope-fzf-native-nvim
