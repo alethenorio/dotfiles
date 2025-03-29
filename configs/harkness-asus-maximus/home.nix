@@ -24,10 +24,16 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     curl
     file
-    (nerdfonts.override {fonts = ["SourceCodePro" "FiraCode" "Noto"];})
+    (nerdfonts.override {
+      fonts = [
+        "SourceCodePro"
+        "FiraCode"
+        "Noto"
+      ];
+    })
     nethogs
     nix-tree
     speedtest-cli
@@ -49,4 +55,3 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
-

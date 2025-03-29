@@ -31,6 +31,7 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.interfaces.eno1.useDHCP = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Stockholm";
@@ -132,7 +133,7 @@ in
   };
 
   # Enable automatic login for the user.
-  services.getty.autologinUser = "alethenorio";
+  # services.getty.autologinUser = "alethenorio";
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
