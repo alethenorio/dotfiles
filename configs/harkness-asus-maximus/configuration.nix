@@ -50,13 +50,25 @@ in
     LC_TIME = "sv_SE.UTF-8";
   };
 
+  # Configure console
+  console = {
+    keyMap = "sv-latin1";
+    # Configure TTY font
+    earlySetup = true;
+    packages = with pkgs; [ terminus_font ];
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u16n.psf.gz";
+  };
+
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb = {
   #   layout = "se";
   #   variant = "";
   # };
   # Enable OpenGL
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
   };
 
@@ -85,13 +97,14 @@ in
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
-  # Configure console
-  console = {
-    keyMap = "sv-latin1";
-    # Configure TTY font
-    earlySetup = true;
-    packages = with pkgs; [ terminus_font ];
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-u16n.psf.gz";
+  # Enable sound with pipewire.
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
   };
 
   users.groups = {
