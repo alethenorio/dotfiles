@@ -60,7 +60,10 @@ in
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u16n.psf.gz";
   };
 
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
