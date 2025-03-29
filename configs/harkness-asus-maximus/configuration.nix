@@ -5,13 +5,18 @@
 { config, pkgs, ... }:
 
 let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../personal/configs/harkness-asus-maximus/configuration.nix
-    ];
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+    };
+  };
+in
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../personal/configs/harkness-asus-maximus/configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -56,9 +61,9 @@ in {
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
-   hardware.nvidia = {
+  hardware.nvidia = {
 
     # Modesetting is required.
     modesetting.enable = true;
@@ -73,18 +78,24 @@ in {
     open = false;
 
     # Enable the Nvidia settings menu,
-	  # accessible via `nvidia-settings`.
+    # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
-  # Configure console keymap
-  console.keyMap = "sv-latin1";
+  # Configure console
+  console = {
+    keyMap = "sv-latin1";
+    # Configure TTY font
+    earlySetup = true;
+    packages = with pkgs; [ terminus_font ];
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u16n.psf.gz";
+  };
 
   users.groups = {
-    tautulli = {};
+    tautulli = { };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -94,9 +105,12 @@ in {
       createHome = true;
       isNormalUser = true;
       description = "Alexandre";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
       hashedPassword = "$6$mZEeKCcpo$41ITgokQpFmMG5f6BQxS628Ne2YJ0aRqmpyyHXjrl9xgXFXc2XOyJlxs2zc5dCEtSXRBWLKHx0UEd4LmLGt0t.";
-      packages = with pkgs; [];
+      packages = with pkgs; [ ];
     };
     tautulli = {
       isNormalUser = true;
@@ -113,7 +127,7 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     cudatoolkit
     curl
@@ -121,7 +135,7 @@ in {
     gh
     git
     neovim
-#    unstable.ollama
+    #    unstable.ollama
     unzip
   ];
 
@@ -130,8 +144,18 @@ in {
   };
 
   security.pam.loginLimits = [
-    { domain = "*"; item = "nofile"; type = "soft"; value = "99999"; }
-    { domain = "*"; item = "nofile"; type = "hard"; value = "99999"; }
+    {
+      domain = "*";
+      item = "nofile";
+      type = "soft";
+      value = "99999";
+    }
+    {
+      domain = "*";
+      item = "nofile";
+      type = "hard";
+      value = "99999";
+    }
   ];
 
   systemd.extraConfig = "DefaultLimitNOFILE=99999";
@@ -156,7 +180,7 @@ in {
       })
     ];
     extraPlugins = [
-      (pkgs.stdenv.mkDerivation{
+      (pkgs.stdenv.mkDerivation {
         name = "Hama.bundle";
         src = pkgs.fetchFromGitHub {
           owner = "ZeroQI";
@@ -170,7 +194,7 @@ in {
         '';
         dontInstall = true;
       })
-      (pkgs.stdenv.mkDerivation{
+      (pkgs.stdenv.mkDerivation {
         name = "Traktv.bundle";
         src = pkgs.fetchFromGitHub {
           owner = "trakt";
@@ -179,8 +203,8 @@ in {
           sha256 = "058691ciy1c94icw91074im24a3gkc1rq9kz67cbzwb9h9ili70q";
         };
         buildPhase = ''
-         mkdir -p $out
-         cp -r ./Trakttv.bundle/* $out/
+          mkdir -p $out
+          cp -r ./Trakttv.bundle/* $out/
         '';
         dontInstall = true;
       })
@@ -209,7 +233,5 @@ in {
     package = unstable.ollama;
   };
 
-
   system.stateVersion = "24.05"; # Did you read the comment?
 }
-
