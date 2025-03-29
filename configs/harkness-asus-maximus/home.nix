@@ -41,6 +41,9 @@
   ];
 
   programs = {
+    firefox = {
+      enable = true;
+    };
     gh = {
       enable = true;
     };
