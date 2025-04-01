@@ -5,6 +5,9 @@
 { pkgs, ... }:
 
 {
+  # If we are ever switching back from flakes, run the following command to avoid the "nixos-config" not found
+  # sudo nixos-rebuild switch -I nixos-config=/etc/nixos/configuration.nix
+  # See https://discourse.nixos.org/t/revert-from-flakes-to-channels/46179/11 for details
   imports = [
     <nixos-hardware/lenovo/thinkpad/x1/9th-gen>
     # Include the results of the hardware scan.

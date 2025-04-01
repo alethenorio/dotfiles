@@ -56,6 +56,7 @@ in
     #alacritty
     bc
     binutils
+    code-cursor
     curl
     dejavu_fonts
     dig
