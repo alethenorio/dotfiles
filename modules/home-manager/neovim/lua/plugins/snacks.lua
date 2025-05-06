@@ -2,7 +2,15 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
+	---@type snacks.Config
 	opts = {
+		styles = {
+			terminal = {
+				keys = {
+					term_normal = false,
+				},
+			},
+		},
 		dashboard = { enabled = true },
 		explorer = { enabled = true },
 		git = { enabled = true },
@@ -30,7 +38,11 @@ return {
 		{
 			"<leader>e",
 			function()
-				require("snacks").explorer()
+				require("snacks").explorer({
+					watch = true,
+					hidden = true,
+					auto_close = false,
+				})
 			end,
 			desc = "File Explorer",
 		},

@@ -17,7 +17,7 @@ return {
 			formatters_by_ft = {
 				go = {
 					"gofumpt",
-					"goimports",
+					-- "goimports",
 					"gci",
 					"golines",
 				},
@@ -38,9 +38,9 @@ return {
 						"$FILENAME",
 					},
 				},
-				goimports = {
-					args = { "-srcdir", "$FILENAME" },
-				},
+				-- goimports = {
+				-- 	args = { "-srcdir", "$FILENAME" },
+				-- },
 				golines = {
 					-- golines will use goimports as base formatter by default which is slow.
 					-- see https://github.com/segmentio/golines/issues/33

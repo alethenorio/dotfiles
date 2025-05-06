@@ -3,18 +3,18 @@
 let
   unstable = import <unstable> { };
   vtslsNodePackage = (pkgs.callPackage ../vtsls/default.nix { });
-  which-key-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "which-key.nvim";
-    version = "v3.13.2";
-    src = pkgs.fetchFromGitHub {
-      owner = "folke";
-      repo = "which-key.nvim";
-      rev = "6c1584eb76b55629702716995cca4ae2798a9cca";
-      sha256 = "sha256-nv9s4/ax2BoL9IQdk42uN7mxIVFYiTK+1FVvWDKRnGM=";
-    };
-    meta.homepage = "https://github.com/folke/which-key.nvim/";
-  };
 in
+# which-key-nvim = pkgs.vimUtils.buildVimPlugin {
+#   pname = "which-key.nvim";
+#   version = "v3.13.2";
+#   src = pkgs.fetchFromGitHub {
+#     owner = "folke";
+#     repo = "which-key.nvim";
+#     rev = "6c1584eb76b55629702716995cca4ae2798a9cca";
+#     sha256 = "sha256-nv9s4/ax2BoL9IQdk42uN7mxIVFYiTK+1FVvWDKRnGM=";
+#   };
+#   meta.homepage = "https://github.com/folke/which-key.nvim/";
+# };
 {
   home.packages = with pkgs; [
     actionlint
@@ -135,7 +135,8 @@ in
         vimPlugins.telescope-project-nvim
         vimPlugins.telescope-ui-select-nvim
         vimPlugins.vim-sleuth
-        which-key-nvim
+        vimPlugins.which-key-nvim
+        # which-key-nvim
       ];
       extraLuaConfig = ''
         vim.g.nix_packages_path = "${pkgs.vimUtils.packDir config.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start"
