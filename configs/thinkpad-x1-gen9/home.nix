@@ -4,7 +4,11 @@
   ...
 }:
 let
-  unstable = import <unstable> { };
+  unstable = import <unstable> {
+    config = {
+      allowUnfree = true;
+    };
+  };
 in
 {
   imports = [
@@ -56,7 +60,7 @@ in
     #alacritty
     bc
     binutils
-    code-cursor
+    unstable.code-cursor
     curl
     dejavu_fonts
     dig
@@ -155,6 +159,14 @@ in
       yarn = super.yarn.override { nodejs = pkgs.nodejs_20; };
     })
   ];
+
+  xdg.desktopEntries = {
+    cursor = {
+      name = "Cursor (Wayland)";
+      genericName = "Cursor";
+      exec = "cursor --ozone-platform=wayland";
+    };
+  };
 
   programs = {
     alacritty = {
