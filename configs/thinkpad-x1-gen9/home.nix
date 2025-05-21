@@ -117,6 +117,7 @@ in
     # ]))
     (python311.withPackages (ps: with ps; [ grpcio-tools ]))
     # (python311.withPackages python-packages)
+    qimgv
     slack
     speedtest-cli
     tio # Serial console TTY
