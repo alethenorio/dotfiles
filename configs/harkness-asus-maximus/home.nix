@@ -25,7 +25,9 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
+    bitwarden-desktop
     curl
+    discord
     file
     nerd-fonts.sauce-code-pro
     nerd-fonts.fira-code
