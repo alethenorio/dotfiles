@@ -27,13 +27,9 @@
   home.packages = with pkgs; [
     curl
     file
-    (nerdfonts.override {
-      fonts = [
-        "SourceCodePro"
-        "FiraCode"
-        "Noto"
-      ];
-    })
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.fira-code
+    nerd-fonts.noto
     nethogs
     nix-tree
     speedtest-cli
