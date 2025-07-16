@@ -9,6 +9,7 @@ let
       allowUnfree = true;
     };
   };
+  geminiCliNodePackage = (pkgs.callPackage ../../modules/home-manager/gemini-cli/default.nix { });
 in
 {
   imports = [
@@ -75,6 +76,7 @@ in
     gh
     gimp
     git
+    geminiCliNodePackage."@google/gemini-cli"
     google-chrome
     (unstable.pkgs.google-cloud-sdk.withExtraComponents [
       unstable.pkgs.google-cloud-sdk.components.skaffold
