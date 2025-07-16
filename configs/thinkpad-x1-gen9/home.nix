@@ -94,13 +94,9 @@ in
     jq
     ko
     logiops
-    (nerdfonts.override {
-      fonts = [
-        "SourceCodePro"
-        "FiraCode"
-        "Noto"
-      ];
-    })
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.fira-code
+    nerd-fonts.noto
     netcat-gnu
     nethogs
     nix-tree
@@ -216,24 +212,28 @@ in
     vscode = {
       enable = true;
       mutableExtensionsDir = true;
-      keybindings = [
-        {
-          key = "ctrl+0";
-          command = "-workbench.action.focusSideBar";
-        }
-        {
-          key = "ctrl+0";
-          command = "workbench.action.zoomReset";
-        }
-        {
-          key = "ctrl+shift+7";
-          command = "editor.action.commentLine";
-        }
-        {
-          key = "ctrl+alt+p";
-          command = "projectManager.listProjects";
-        }
-      ];
+      profiles = {
+        default = {
+          keybindings = [
+            {
+              key = "ctrl+0";
+              command = "-workbench.action.focusSideBar";
+            }
+            {
+              key = "ctrl+0";
+              command = "workbench.action.zoomReset";
+            }
+            {
+              key = "ctrl+shift+7";
+              command = "editor.action.commentLine";
+            }
+            {
+              key = "ctrl+alt+p";
+              command = "projectManager.listProjects";
+            }
+          ];
+        };
+      };
     };
   };
 
