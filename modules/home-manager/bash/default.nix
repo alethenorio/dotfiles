@@ -11,7 +11,7 @@
       # Larger bash history (allow 32³ entries; default is 500)
       historySize = 50000000;
       historyFileSize = 50000000;
-      historyControl = [ "ignoredups" ];
+      historyControl = [ "ignoredups" "ignorespace" ];
       # workaround to get the EDITOR env set.
       # Assigning sessionVariables does not work
       initExtra =
