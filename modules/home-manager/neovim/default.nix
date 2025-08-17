@@ -3,6 +3,12 @@
 let
   unstable = import <unstable> { };
   vtslsNodePackage = (pkgs.callPackage ../vtsls/default.nix { });
+  # Workaround for the fact that we mix unstable neovim package with stable nixOS options
+  neovim-unwrapped = unstable.pkgs.neovim-unwrapped.overrideAttrs (old: {
+    meta = old.meta or { } // {
+      maintainers = [ ];
+    };
+  });
 in
 # which-key-nvim = pkgs.vimUtils.buildVimPlugin {
 #   pname = "which-key.nvim";
@@ -47,7 +53,8 @@ in
     ripgrep.enable = true;
     neovim = {
       enable = true;
-      package = unstable.pkgs.neovim-unwrapped;
+      package = neovim-unwrapped;
+      # package = unstable.pkgs.neovim-unwrapped;
       viAlias = true;
       vimAlias = true;
       # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/applications/editors/vim/plugins/generated.nix
