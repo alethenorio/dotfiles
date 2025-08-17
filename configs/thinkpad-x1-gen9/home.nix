@@ -143,17 +143,15 @@ in
     (self: super: {
       # Better support for wayland in Slack
       slack = super.slack.overrideAttrs (old: {
-        installPhase =
-          old.installPhase
-          + ''
-            rm $out/bin/slack
+        installPhase = old.installPhase + ''
+          rm $out/bin/slack
 
-            makeWrapper $out/lib/slack/slack $out/bin/slack \
-            --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-            --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-utils ]} \
-            --prefix NIXOS_OZONE_WL : "1" \
-            --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
-          '';
+          makeWrapper $out/lib/slack/slack $out/bin/slack \
+          --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
+          --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-utils ]} \
+          --prefix NIXOS_OZONE_WL : "1" \
+          --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
+        '';
       });
       yarn = super.yarn.override { nodejs = pkgs.nodejs_20; };
     })
