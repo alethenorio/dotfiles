@@ -10,6 +10,28 @@ let
     };
   };
   geminiCliNodePackage = (pkgs.callPackage ../../modules/home-manager/gemini-cli/default.nix { });
+  ghdependabot = pkgs.buildGoModule rec {
+    pname = "gh-dependabot";
+    version = "0.14.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "einride";
+      repo = "gh-dependabot";
+      rev = "v0.14.0";
+      hash = "sha256-JeM0JV8me7ZK0xqayu2bGIdxL30EQ/mYFNR5uWjqD7w=";
+    };
+
+    # buildGoModule tries to build every single module by default.
+    # We only want to build the root module.
+    subPackages = ".";
+
+    vendorHash = "sha256-lG7Dqkq2y5uc/xTQDLkTyrNSIlbogSYlbk2wrCTcwpc=";
+
+    ldflags = [
+      "-s"
+      # "-w"
+    ];
+  };
 in
 {
   imports = [
@@ -143,17 +165,15 @@ in
     (self: super: {
       # Better support for wayland in Slack
       slack = super.slack.overrideAttrs (old: {
-        installPhase =
-          old.installPhase
-          + ''
-            rm $out/bin/slack
+        installPhase = old.installPhase + ''
+          rm $out/bin/slack
 
-            makeWrapper $out/lib/slack/slack $out/bin/slack \
-            --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
-            --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-utils ]} \
-            --prefix NIXOS_OZONE_WL : "1" \
-            --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
-          '';
+          makeWrapper $out/lib/slack/slack $out/bin/slack \
+          --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
+          --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-utils ]} \
+          --prefix NIXOS_OZONE_WL : "1" \
+          --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
+        '';
       });
       yarn = super.yarn.override { nodejs = pkgs.nodejs_20; };
     })
@@ -192,6 +212,9 @@ in
           pc = "!jj git push -c \"all:$1\"; for c in $(jj log --no-graph -r \"$1 & mutable()\" -T \"change_id ++ '\n'\"); do echo creating PR for $c; gh pr create --draft --head $(jj bookmark list -r $c -T name) --base $(jj bookmark list -r \"heads(::$c- & bookmarks())\" -T name) --fill; done";
         };
       };
+      extensions = [
+        ghdependabot
+      ];
     };
     go = {
       enable = true;
