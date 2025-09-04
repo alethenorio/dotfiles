@@ -85,7 +85,13 @@ return {
 		{
 			"<leader>sp",
 			function()
-				require("snacks").picker.projects()
+				require("snacks").picker.projects({
+					dev = {
+						"~/code",
+						"~/code/einride",
+						"~/code/einride-labs",
+					},
+				})
 			end,
 			desc = "[S]earch [P]rojects",
 		},
