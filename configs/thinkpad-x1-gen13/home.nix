@@ -218,7 +218,7 @@ in
     };
     go = {
       enable = true;
-      package = unstable.pkgs.go_1_23;
+      package = unstable.pkgs.go_1_25;
       goPrivate = [
         "github.com/einride"
         "go.einride.tech"
