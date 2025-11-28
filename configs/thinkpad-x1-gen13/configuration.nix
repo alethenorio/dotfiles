@@ -78,6 +78,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
   # Necessary for Chromecast to work with Chrome
   services.avahi = {
     enable = true;
