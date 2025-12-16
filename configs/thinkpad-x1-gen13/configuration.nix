@@ -66,6 +66,7 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.networkmanager.enable = true;
+  networking.interfaces.wlp0s20f3.useDHCP = true;
   networking.hostName = "moya";
 
   nixpkgs.config.allowUnfree = true;
