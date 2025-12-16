@@ -24,19 +24,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.blacklistedKernelModules = [
-    "nouveau"
-    "nvidia"
-  ];
-  #boot.initrd.luks.devices."luks-ca0e5aeb-4a55-461c-9e85-45f23be4058a".device =
-  #  "/dev/disk/by-uuid/ca0e5aeb-4a55-461c-9e85-45f23be4058a";
-  boot.initrd.luks.devices."luks-4b08e31d-e21e-43e9-a4d3-e666b0e43fa2".device = "/dev/disk/by-uuid/4b08e31d-e21e-43e9-a4d3-e666b0e43fa2";
+  boot.initrd.luks.devices."luks-4b08e31d-e21e-43e9-a4d3-e666b0e43fa2".device =
+    "/dev/disk/by-uuid/4b08e31d-e21e-43e9-a4d3-e666b0e43fa2";
 
-  hardware.graphics = {
-    enable = true;
-  };
+  hardware.graphics.enable = true;
   hardware.bluetooth.enable = true;
-  # services.blueman.enable = true;
 
   # In order to use a login manager (which needs to be done at system level),
   # we enable Sway at system level however as per https://nixos.wiki/wiki/Sway#Installation
