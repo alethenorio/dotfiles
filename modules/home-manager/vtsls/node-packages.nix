@@ -13,22 +13,22 @@ let
         sha512 = "KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==";
       };
     };
-    "@vtsls/language-service-0.2.6" = {
+    "@vtsls/language-service-0.3.0" = {
       name = "_at_vtsls_slash_language-service";
       packageName = "@vtsls/language-service";
-      version = "0.2.6";
+      version = "0.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@vtsls/language-service/-/language-service-0.2.6.tgz";
-        sha512 = "EoeZyLiWl1Sh65qQ27ewShRKD62xl5A+xEPMx1mpNH23N8yYAhsa7qMuuD2rkEPV07Wn+D4MAPtNLKBtUrwERA==";
+        url = "https://registry.npmjs.org/@vtsls/language-service/-/language-service-0.3.0.tgz";
+        sha512 = "u2Z5oY64953CvG1SdI6Zimlbnaqj7OT/sj9zcw/gr/f6pl3e0ryh8lsa376MeC9T/SW7q+Aw0YMyUZIIIZOyng==";
       };
     };
-    "@vtsls/vscode-fuzzy-0.0.1" = {
+    "@vtsls/vscode-fuzzy-0.1.0" = {
       name = "_at_vtsls_slash_vscode-fuzzy";
       packageName = "@vtsls/vscode-fuzzy";
-      version = "0.0.1";
+      version = "0.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@vtsls/vscode-fuzzy/-/vscode-fuzzy-0.0.1.tgz";
-        sha512 = "2KCtA+/OmPVttsdVggO0WQFXZwM0zbG7G8KRGExe4YeoaHB0fDWyfsNrWnutnFVRlpmu8quVTjTI15YK6KGCFw==";
+        url = "https://registry.npmjs.org/@vtsls/vscode-fuzzy/-/vscode-fuzzy-0.1.0.tgz";
+        sha512 = "jpJ6pFyi152BZ65j1D7otCf1YA9xaMqXV6nn2MOF8BNx0mkwIp2lTj26xvGk/mvEtiVvsGN3vMiBNXMxcv6bIA==";
       };
     };
     "jsonc-parser-3.3.1" = {
@@ -58,13 +58,13 @@ let
         sha512 = "SoftuTROv/cRjCze/scjGyiDtcUyxw1rgYQSZY7XTmtR5hX+dm76iDbTH8TkLPHCQmlbQVSSbNZCPM2hb0knnQ==";
       };
     };
-    "typescript-5.6.2" = {
+    "typescript-5.9.3" = {
       name = "typescript";
       packageName = "typescript";
-      version = "5.6.2";
+      version = "5.9.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/typescript/-/typescript-5.6.2.tgz";
-        sha512 = "NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==";
+        url = "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz";
+        sha512 = "jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==";
       };
     };
     "vscode-jsonrpc-8.2.0" = {
@@ -112,13 +112,13 @@ let
         sha512 = "Ld1VelNuX9pdF39h2Hgaeb5hEZM2Z3jUrrMgWQAu82jMtZp7p3vJT3BzToKtZI7NgQssZje5o0zryOrhQvzQAg==";
       };
     };
-    "vscode-uri-3.0.8" = {
+    "vscode-uri-3.1.0" = {
       name = "vscode-uri";
       packageName = "vscode-uri";
-      version = "3.0.8";
+      version = "3.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/vscode-uri/-/vscode-uri-3.0.8.tgz";
-        sha512 = "AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==";
+        url = "https://registry.npmjs.org/vscode-uri/-/vscode-uri-3.1.0.tgz";
+        sha512 = "/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==";
       };
     };
     "yallist-4.0.0" = {
@@ -136,25 +136,25 @@ in
   "@vtsls/language-server" = nodeEnv.buildNodePackage {
     name = "_at_vtsls_slash_language-server";
     packageName = "@vtsls/language-server";
-    version = "0.2.6";
+    version = "0.3.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@vtsls/language-server/-/language-server-0.2.6.tgz";
-      sha512 = "o5VHtC7LKLNAA2v1yLPRcn4wwYiFLRU2shgIsC5jYe2tjIfj3bA0vkBsquEDlXBIfmesNFzuzwBahiii6y0Cvg==";
+      url = "https://registry.npmjs.org/@vtsls/language-server/-/language-server-0.3.0.tgz";
+      sha512 = "EYTkCHNGz3MFSP7z0DZ5+WBQY5CWEH7bCUu53EaDloBTjghoi2vfZqSrS0+7WsRG03MhBhjGG9ifNee/2kixvQ==";
     };
     dependencies = [
       sources."@vscode/l10n-0.0.18"
-      sources."@vtsls/language-service-0.2.6"
-      sources."@vtsls/vscode-fuzzy-0.0.1"
+      sources."@vtsls/language-service-0.3.0"
+      sources."@vtsls/vscode-fuzzy-0.1.0"
       sources."jsonc-parser-3.3.1"
       sources."lru-cache-6.0.0"
       sources."semver-7.5.2"
-      sources."typescript-5.6.2"
+      sources."typescript-5.9.3"
       sources."vscode-jsonrpc-8.2.0"
       sources."vscode-languageserver-9.0.1"
       sources."vscode-languageserver-protocol-3.17.5"
       sources."vscode-languageserver-textdocument-1.0.12"
       sources."vscode-languageserver-types-3.17.5"
-      sources."vscode-uri-3.0.8"
+      sources."vscode-uri-3.1.0"
       sources."yallist-4.0.0"
     ];
     buildInputs = globalBuildInputs;

@@ -219,12 +219,12 @@ in
     go = {
       enable = true;
       package = unstable.pkgs.go_1_25;
-      goPrivate = [
-        "github.com/einride"
-        "go.einride.tech"
-      ];
-      goPath = "go";
-      goBin = "go/bin";
+      env = {
+        GOPRIVATE = "github.com/einride,go.einride.tech";
+        GOBIN = "go/bin";
+        GOPATH = "go";
+        GOTOOLCHAIN = "go1.25.5+auto";
+      };
     };
     java = {
       enable = true;
