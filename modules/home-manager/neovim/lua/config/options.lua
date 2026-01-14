@@ -100,6 +100,6 @@ vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Sav
 
 -- open sway terminal
 vim.keymap.set("n", "<leader>ft", function()
-	local cmd = { "swaymsg", 'exec "alacritty --working-directory ' .. vim.fn.getcwd() .. '", split vertical' }
+	local cmd = { "swaymsg", 'exec "ghostty --working-directory ' .. vim.fn.getcwd() .. '", split vertical' }
 	vim.fn.system(cmd)
 end, { desc = "Open a terminal in sway" })

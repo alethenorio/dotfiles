@@ -58,7 +58,7 @@
       in
       {
         modifier = "Mod4";
-        terminal = "alacritty";
+        terminal = "ghostty";
         # terminal = "foot";
         menu = "wofi --show drun -i | xargs swaymsg exec --";
         fonts = {
