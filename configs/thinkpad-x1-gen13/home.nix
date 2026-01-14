@@ -221,8 +221,6 @@ in
       package = unstable.pkgs.go_1_25;
       env = {
         GOPRIVATE = "github.com/einride,go.einride.tech";
-        GOBIN = "go/bin";
-        GOPATH = "go";
         GOTOOLCHAIN = "go1.25.5+auto";
       };
     };
