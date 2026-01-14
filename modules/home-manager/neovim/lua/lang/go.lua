@@ -104,6 +104,7 @@ return {
 					"-parallel=1",
 				},
 			}
+			return opts
 		end,
 	},
 	{

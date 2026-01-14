@@ -63,7 +63,8 @@ return {
 					end
 				end
 
-				require("lspconfig")[server].setup(final_server_opts)
+				vim.lsp.config(server, final_server_opts)
+				vim.lsp.enable(server)
 			end
 
 			vim.api.nvim_create_autocmd("LspAttach", {
