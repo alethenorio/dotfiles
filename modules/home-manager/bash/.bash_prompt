@@ -13,72 +13,34 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
 	export TERM='xterm-256color';
 fi;
 
-prompt_git() {
-	local s='';
-	local branchName='';
+jjgit_prompt() {
+    local jjgit gitprompt
 
-	# Check if the current directory is in a Git repository.
-	if [ "$(git rev-parse --is-inside-work-tree &>/dev/null; echo "${?}")" == '0' ]; then
+    # echo "jj" or "git" if either is found in $PWD or its parent directories
+    pwd_in_jjgit() {
+        # using the shell is much faster than `git rev-parse --git-dir` or `jj root`
+        local D="/$PWD"
+        while test -n "$D"; do
+            test -e "$D/.jj" && { echo jj; return; }
+            test -e "$D/.git" && { echo git; return; }
+            D="${D%/*}"
+        done
+    }
 
-		# check if the current directory is in .git before running git checks
-		if [ "$(git rev-parse --is-inside-git-dir 2> /dev/null)" == 'false' ]; then
+    jjgit="$(pwd_in_jjgit)" # results in "jj", "git" or ""
 
-			if [[ -O "$(git rev-parse --show-toplevel)/.git/index" ]]; then
-				git update-index --really-refresh -q &> /dev/null;
-			fi;
-
-			# Check for uncommitted changes in the index.
-			if ! git diff --quiet --ignore-submodules --cached; then
-				s+='+';
-			fi;
-
-			# Check for unstaged changes.
-			if ! git diff-files --quiet --ignore-submodules --; then
-				s+='!';
-			fi;
-
-			# Check for untracked files.
-			if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-				s+='?';
-			fi;
-
-			# Check for stashed files.
-			if git rev-parse --verify refs/stash &>/dev/null; then
-				s+='$';
-			fi;
-
-		fi;
-
-		# Get the short symbolic ref.
-		# If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
-		# Otherwise, just give up.
-		branchName="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
-			git rev-parse --short HEAD 2> /dev/null || \
-			echo '(unknown)')";
-
-		[ -n "${s}" ] && s=" [${s}]";
-
-		echo -e "${1}${branchName}${blue}${s}";
-	else
-		return;
-	fi;
-}
-
-prompt_jj() {
-	local bookmarkName='';
-
-	# Check if the current directory is in a jj repository.
-	if [ "$(jj root &>/dev/null; echo "${?}")" == '0' ]; then
-
-		# Get the short symbolic ref.
-		# If HEAD isn’t a symbolic ref, get the short SHA for the latest commit
-		# Otherwise, just give up.
-		bookmarkName="$(jj log --no-graph -r @ -T "bookmarks")";
-
-		echo -e "${1}${bookmarkName}";
-	else
-		return;
-	fi;
+    if test "$jjgit" = jj; then
+        # --ignore-working-copy: avoid inspecting $PWD and concurrent snapshotting which could create divergent commits
+        printf "${1}%s" "$(
+		jj --ignore-working-copy --no-pager log --no-graph --color=always -r @ -T \
+		' "jj:[@ " ++ concat( separate(" ", format_short_change_id_with_change_offset(self),format_short_commit_id(commit_id),bookmarks,if(conflict,label("conflict","conflict"))))++"]" '
+        )"
+    elif test "$jjgit" = git; then
+        # --no-pager: never use a pager for the prompt, regardless of user config
+        gitprompt=$(git --no-pager log -1 --color=always \
+            --pretty='%C(auto)%h ꜓%C(auto)%(decorate:prefix=,suffix=,tag=,pointer=→,separator=%x2C))' 2>/dev/null)
+        printf "${1}%s" "git:[${gitprompt/HEAD/}]"
+    fi
 }
 
 cloud=""
@@ -141,8 +103,7 @@ PS1+="\\[${white}\\] at ";
 PS1+="\\[${hostStyle}\\]${cloud}\\h"; # host
 PS1+="\\[${white}\\] in ";
 PS1+="\\[${green}\\]\\w"; # working directory
-PS1+="\$(prompt_git \"${white} on ${violet}\")"; # Git repository details
-PS1+="\$(prompt_jj \"${white} || ${orange}\")"; # jj repository details
+PS1+="\$(jjgit_prompt \"${white} on ${violet}\")"; # Git/jj repository details
 PS1+="\\n";
 PS1+="\\[${white}\\]\$ \\[${reset}\\]"; # `$` (and reset color)
 export PS1;
