@@ -176,7 +176,9 @@ in
     }
   ];
 
-  systemd.extraConfig = "DefaultLimitNOFILE=99999";
+  systemd.settings.Manager = {
+    DefaultLimitNOFILE = "99999";
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
