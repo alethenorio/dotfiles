@@ -241,6 +241,16 @@ in
     group = "tautulli";
   };
 
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "server";
+    extraSetFlags = [
+      "--advertise-exit-node"
+      "--exit-node-allow-lan-access=true"
+      "--advertise-routes=192.168.10.0/24"
+    ];
+  };
+
   programs = {
     steam = {
       enable = true;
