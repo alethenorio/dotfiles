@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
-  unstable = import <unstable> { };
   vtslsNodePackage = (pkgs.callPackage ../vtsls/default.nix { });
   # Workaround for the fact that we mix unstable neovim package with stable nixOS options
-  neovim-unwrapped = unstable.pkgs.neovim-unwrapped.overrideAttrs (old: {
+  neovim-unwrapped = pkgs-unstable.neovim-unwrapped.overrideAttrs (old: {
     meta = old.meta or { } // {
       maintainers = [ ];
     };
@@ -26,14 +25,14 @@ in
     actionlint
     # use unstable because buf 1.45.0 which contains
     # the buf LSP is not yet available in stable
-    unstable.pkgs.buf
-    unstable.delve
+    pkgs-unstable.buf
+    pkgs-unstable.delve
     eslint_d
     fd
     gci
     gofumpt
     golines
-    unstable.gopls
+    pkgs-unstable.gopls
     gotools
     lua-language-server
     nil
@@ -49,7 +48,7 @@ in
     yamlfmt
     yamllint
   ];
-  programs = with unstable.pkgs; {
+  programs = with pkgs-unstable; {
     ripgrep.enable = true;
     neovim = {
       enable = true;
@@ -72,7 +71,7 @@ in
         vimPlugins.friendly-snippets
         vimPlugins.FTerm-nvim
         vimPlugins.lazy-nvim
-        unstable.pkgs.vimPlugins.lazydev-nvim
+        pkgs-unstable.vimPlugins.lazydev-nvim
         vimPlugins.lualine-nvim
         vimPlugins.luvit-meta
         vimPlugins.neo-tree-nvim
