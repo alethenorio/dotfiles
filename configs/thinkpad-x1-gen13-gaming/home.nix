@@ -1,8 +1,9 @@
-{ config, pkgs, ... }:
+{
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
-let
-  unstable = import <unstable> {};
-in
 {
   imports = [
     ../../modules/home-manager/git
@@ -25,6 +26,14 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
+  # When using Ghostty, some dead keys (such as ~ on a Swedish keyboard) don't work
+  # so we need to add something like fcitx5.
+  # See https://github.com/ghostty-org/ghostty/discussions/8899 for more details.
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+  };
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -34,11 +43,16 @@ in
     gcc
     gdb
     gh
+    google-chrome
+    htop
+    jq
     meson
     ninja
+    nmap
     unzip
     vlc
     vscode
+    wget
   ];
 
   programs = {
@@ -54,30 +68,46 @@ in
       };
       # gitCredentialHelper.enable = true;
     };
+    ghostty = {
+      enable = true;
+      systemd.enable = true;
+      settings = {
+        theme = "";
+      };
+    };
     go = {
       enable = true;
-      package = unstable.pkgs.go_1_21;
-      goPrivate = [ "github.com/einride" "go.einride.tech" ];
-      goPath = "go";
-      goBin = "go/bin";
+      package = pkgs-unstable.pkgs.go_1_26;
+      env = {
+        GOPRIVATE = "github.com/einride,go.einride.tech";
+        GOTOOLCHAIN = "go1.26.1+auto";
+      };
     };
     vscode = {
       enable = true;
       mutableExtensionsDir = true;
-      keybindings = [
-        {
-          key = "ctrl+0";
-          command = "-workbench.action.focusSideBar";
-        }
-        {
-          key = "ctrl+0";
-          command = "workbench.action.zoomReset";
-        }
-        {
-          key = "ctrl+shift+7";
-          command = "editor.action.commentLine";
-        }
-      ];
+      profiles = {
+        default = {
+          keybindings = [
+            {
+              key = "ctrl+0";
+              command = "-workbench.action.focusSideBar";
+            }
+            {
+              key = "ctrl+0";
+              command = "workbench.action.zoomReset";
+            }
+            {
+              key = "ctrl+shift+7";
+              command = "editor.action.commentLine";
+            }
+            {
+              key = "ctrl+alt+p";
+              command = "projectManager.listProjects";
+            }
+          ];
+        };
+      };
     };
   };
 
@@ -89,7 +119,10 @@ in
 
   # Add Go bin directory to $PATH
   # Add local bin directory to $PATH
-  home.sessionPath = [ "~/go/bin" "~/bin" ];
+  home.sessionPath = [
+    "~/go/bin"
+    "~/bin"
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

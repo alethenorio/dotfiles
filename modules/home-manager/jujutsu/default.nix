@@ -1,22 +1,16 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }:
 
-let
-  unstable = import <unstable> {
-    config = {
-      allowUnfree = true;
-    };
-  };
-in
 {
   programs = {
     jujutsu = {
       enable = true;
-      package = unstable.pkgs.jujutsu;
+      package = pkgs-unstable.jujutsu;
       settings = {
         user = {
           name = "Alexandre Thenorio";

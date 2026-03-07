@@ -1,29 +1,27 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      # See https://github.com/NixOS/nixos-hardware/tree/master for details
-      <nixos-hardware/dell/xps/15-9520>
-      <nixos-hardware/dell/xps/15-9520/nvidia>
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # nixos-hardware modules are imported via flake.nix
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -74,20 +72,20 @@
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   programs.system-config-printer.enable = true;
 
-  hardware.printers.ensurePrinters = [{
-    name = "home";
-    description = "Home Printer HP Color LaserJet 2600n";
-    location = "Gothenburg, Sweden";
-    deviceUri = "socket://192.168.10.233:9100";
-    model = "drv:///hp/hpcups.drv/hp-color_laserjet_2600n.ppd";
-  }];
+  hardware.printers.ensurePrinters = [
+    {
+      name = "home";
+      description = "Home Printer HP Color LaserJet 2600n";
+      location = "Gothenburg, Sweden";
+      deviceUri = "socket://192.168.10.233:9100";
+      model = "drv:///hp/hpcups.drv/hp-color_laserjet_2600n.ppd";
+    }
+  ];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -109,11 +107,16 @@
   users.users.alethenorio = {
     isNormalUser = true;
     description = "Alexandre";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "plugdev" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "dialout"
+      "plugdev"
+    ];
     packages = with pkgs; [
       firefox
-      kate
-    #  thunderbird
+      kdePackages.kate
+      #  thunderbird
     ];
   };
 
@@ -127,13 +130,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    exfat
+    gparted
+    killall
+    vim
     wget
   ];
 
   environment.variables = {
     EDITOR = "vim";
   };
+
+  # Control screen brightness
+  programs.light.enable = true;
+
+  # Support running non-nix binaries.
+  programs.nix-ld.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
