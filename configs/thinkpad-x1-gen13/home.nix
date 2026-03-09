@@ -206,6 +206,10 @@ in
         };
       };
     };
+    claude-code = {
+      enable = true;
+      package = unstable.pkgs.claude-code;
+    };
     firefox = {
       enable = true;
     };
