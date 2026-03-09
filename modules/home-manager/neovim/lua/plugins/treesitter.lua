@@ -1,3 +1,9 @@
+vim.filetype.add({
+	extension = {
+		fga = "fga",
+	},
+})
+
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",

@@ -13,6 +13,17 @@ let
       maintainers = [ ];
     };
   });
+  tree-sitter-fga = pkgs.tree-sitter.buildGrammar {
+    language = "fga";
+    version = "0.0.0+rev=e763d12";
+    src = pkgs.fetchFromGitHub {
+      owner = "matoous";
+      repo = "tree-sitter-fga";
+      rev = "e763d12cfd8569494215f304bc2b0074c84709e9";
+      hash = "sha256-d1gvEoJosBcEiq4fxb+1LFcdSkuOWGXyG1cC44Lo19o=";
+    };
+    meta.homepage = "https://github.com/matoous/tree-sitter-fga";
+  };
 in
 # which-key-nvim = pkgs.vimUtils.buildVimPlugin {
 #   pname = "which-key.nvim";
@@ -130,7 +141,7 @@ in
             typescript
             vimdoc
             yaml
-          ]
+          ] ++ [ tree-sitter-fga ]
         ))
         # vimPlugins.nvim-treesitter.withAllGrammars
         vimPlugins.nvim-treesitter-context
@@ -159,6 +170,8 @@ in
 
     };
   };
+
+  xdg.configFile."nvim/queries/fga".source = "${tree-sitter-fga}/queries";
 
   home.file.".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink ./lua;
 }
