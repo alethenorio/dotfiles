@@ -1,4 +1,9 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
 let
   vtslsNodePackage = (pkgs.callPackage ../vtsls/default.nix { });
@@ -70,6 +75,7 @@ in
         vimPlugins.FixCursorHold-nvim
         vimPlugins.friendly-snippets
         vimPlugins.FTerm-nvim
+        vimPlugins.gitsigns-nvim
         vimPlugins.lazy-nvim
         pkgs-unstable.vimPlugins.lazydev-nvim
         vimPlugins.lualine-nvim
