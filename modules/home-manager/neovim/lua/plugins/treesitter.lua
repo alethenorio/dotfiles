@@ -10,7 +10,10 @@ return {
 					local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
 					-- Skip special buffers (prompts, terminals, popups, etc.)
 					if buftype == "" or buftype == "acwrite" then
-						vim.treesitter.start(buf)
+						local lang = vim.treesitter.language.get_lang(vim.bo[buf].filetype) or vim.bo[buf].filetype
+						if vim.treesitter.language.add(lang) then
+							vim.treesitter.start(buf)
+						end
 					end
 				end,
 			})
