@@ -9,7 +9,7 @@
   # sudo nixos-rebuild switch -I nixos-config=/etc/nixos/configuration.nix
   # See https://discourse.nixos.org/t/revert-from-flakes-to-channels/46179/11 for details
   imports = [
-    <nixos-hardware/lenovo/thinkpad/x1/13th-gen>
+    # nixos-hardware module is imported via flake.nix
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../einride/modules/nixos

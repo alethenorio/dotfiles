@@ -2,15 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
-let
-  unstable = import <nixos-unstable> {
-    config = {
-      allowUnfree = true;
-    };
-  };
-in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -268,7 +266,7 @@ in
   services.ollama = {
     enable = true;
     acceleration = "cuda";
-    package = unstable.ollama;
+    package = pkgs-unstable.ollama;
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?

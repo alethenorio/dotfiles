@@ -1,14 +1,10 @@
 {
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }:
 let
-  unstable = import <unstable> {
-    config = {
-      allowUnfree = true;
-    };
-  };
   geminiCliNodePackage = (pkgs.callPackage ../../modules/home-manager/gemini-cli/default.nix { });
   ghdependabot = pkgs.buildGoModule rec {
     pname = "gh-dependabot";
@@ -90,7 +86,7 @@ in
   home.packages = with pkgs; [
     bc
     binutils
-    unstable.code-cursor
+    pkgs-unstable.code-cursor
     curl
     dejavu_fonts
     dig
@@ -107,13 +103,13 @@ in
     git
     geminiCliNodePackage."@google/gemini-cli"
     google-chrome
-    (unstable.pkgs.google-cloud-sdk.withExtraComponents [
-      unstable.pkgs.google-cloud-sdk.components.skaffold
-      unstable.pkgs.google-cloud-sdk.components.minikube
-      unstable.pkgs.google-cloud-sdk.components.kubectl
-      unstable.pkgs.google-cloud-sdk.components.log-streaming
-      unstable.pkgs.google-cloud-sdk.components.cloud-run-proxy
-      unstable.pkgs.google-cloud-sdk.components.cloud-spanner-emulator
+    (pkgs-unstable.google-cloud-sdk.withExtraComponents [
+      pkgs-unstable.google-cloud-sdk.components.skaffold
+      pkgs-unstable.google-cloud-sdk.components.minikube
+      pkgs-unstable.google-cloud-sdk.components.kubectl
+      pkgs-unstable.google-cloud-sdk.components.log-streaming
+      pkgs-unstable.google-cloud-sdk.components.cloud-run-proxy
+      pkgs-unstable.google-cloud-sdk.components.cloud-spanner-emulator
     ])
     gnumake
     gnupg
@@ -208,7 +204,7 @@ in
     };
     claude-code = {
       enable = true;
-      package = unstable.pkgs.claude-code;
+      package = pkgs-unstable.claude-code;
     };
     firefox = {
       enable = true;
@@ -236,7 +232,7 @@ in
     };
     go = {
       enable = true;
-      package = unstable.pkgs.go_1_25;
+      package = pkgs-unstable.go_1_25;
       env = {
         GOPRIVATE = "github.com/einride,go.einride.tech";
         GOTOOLCHAIN = "go1.25.5+auto";
