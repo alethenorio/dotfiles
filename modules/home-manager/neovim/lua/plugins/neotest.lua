@@ -57,6 +57,14 @@ return {
 
 		-- Set up Neotest.
 		require("neotest").setup(opts)
+
+		-- Disable subprocess parsing. Neotest spawns a child nvim with `-u NONE`
+		-- which doesn't have access to nix-managed treesitter grammar parsers,
+		-- causing "No parser for language" errors. Parsing in the parent process
+		-- works fine since all parsers are available there.
+		require("neotest.lib").subprocess.enabled = function()
+			return false
+		end
 	end,
 	keys = {
 		{
