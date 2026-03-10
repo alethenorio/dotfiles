@@ -216,7 +216,7 @@ in
       enable = true;
       settings = {
         aliases = {
-          pc = "!jj git push -c \"all:$1\"; for c in $(jj log --no-graph -r \"$1 & mutable()\" -T \"change_id ++ '\n'\"); do echo creating PR for $c; gh pr create --draft --head $(jj bookmark list -r $c -T name) --base $(jj bookmark list -r \"heads(::$c- & bookmarks())\" -T name) --fill; done";
+          pc = "!jj git push -c \"$1\" || exit 1; for c in $(jj log --no-graph -r \"$1 & mutable()\" -T \"change_id ++ '\n'\"); do echo creating PR for $c; gh pr create --draft --head \"$(jj bookmark list -r $c -T name)\" --base \"$(jj bookmark list -r \"heads(::$c- & bookmarks())\" -T name)\" --fill; done";
         };
       };
       extensions = [
