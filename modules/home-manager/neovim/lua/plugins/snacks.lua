@@ -96,6 +96,18 @@ return {
 			desc = "[S]earch [P]rojects",
 		},
 		{
+
+			"<leader>sw",
+			function()
+				require("snacks").picker.projects({
+					dev = {
+						"~/code/einride/.workspaces",
+					},
+				})
+			end,
+			desc = "[S]earch [W]orkspaces",
+		},
+		{
 			"<leader>sd",
 			function()
 				require("snacks").picker.diagnostics()
