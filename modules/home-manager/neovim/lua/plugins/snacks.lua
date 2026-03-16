@@ -18,7 +18,30 @@ return {
 		indent = { enabled = true },
 		input = { enabled = true },
 		notifier = { enabled = true },
-		picker = { enabled = true },
+		picker = {
+			enabled = true,
+			sources = {
+				gh_issue = {},
+				-- <A-d> in the PR picker toggles hiding/showing draft PRs
+				gh_pr = {
+					toggles = {
+						hide_drafts = "d",
+					},
+					transform = function(item, ctx)
+						if ctx.picker.opts.hide_drafts and item.draft then
+							return false
+						end
+					end,
+					win = {
+						input = {
+							keys = {
+								["<a-d>"] = { "toggle_hide_drafts", mode = { "n", "i" }, desc = "Toggle Draft PRs" },
+							},
+						},
+					},
+				},
+			},
+		},
 		-- quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = { enabled = true },
@@ -26,6 +49,7 @@ return {
 		terminal = { enabled = true },
 		toggle = { enabled = true },
 		words = { enabled = true },
+		gh = { enabled = true },
 	},
 	keys = {
 		{
@@ -121,6 +145,20 @@ return {
 			end,
 			-- mode = { "n", "v" },
 			desc = "Toggle Terminal",
+		},
+		{
+			"<leader>gp",
+			function()
+				Snacks.picker.gh_pr()
+			end,
+			desc = "GitHub Pull Requests (open)",
+		},
+		{
+			"<leader>gP",
+			function()
+				Snacks.picker.gh_pr({ state = "all" })
+			end,
+			desc = "GitHub Pull Requests (all)",
 		},
 	},
 	init = function()
