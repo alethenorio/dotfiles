@@ -8,11 +8,11 @@
 }:
 let
   geminiCliNodePackage = (pkgs.callPackage ../../modules/home-manager/gemini-cli/default.nix { });
-  gwsSkillsPath = "${gws-src}/skills";
-  gwsSkillLinks = lib.mapAttrs' (name: _: {
-    name = ".claude/skills/${name}";
-    value = { source = "${gwsSkillsPath}/${name}"; };
-  }) (lib.filterAttrs (_: type: type == "directory") (builtins.readDir gwsSkillsPath));
+  # gwsSkillsPath = "${gws-src}/skills";
+  # gwsSkillLinks = lib.mapAttrs' (name: _: {
+  #   name = ".claude/skills/${name}";
+  #   value = { source = "${gwsSkillsPath}/${name}"; };
+  # }) (lib.filterAttrs (_: type: type == "directory") (builtins.readDir gwsSkillsPath));
 
   ghdependabot = pkgs.buildGoModule rec {
     pname = "gh-dependabot";
@@ -293,14 +293,15 @@ in
     };
   };
 
-  home.file = gwsSkillLinks // {
+  # home.file = gwsSkillLinks // {
+  home.file = { } // {
     "bin/configure-dell-s3422dwg.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-      swaymsg "output 'Dell Inc. DELL S3422DWG 7PT3KK3'  resolution --custom 3440x1440 position 0 0"
-      swaymsg "output 'Sharp Corporation 0x1515 Unknown'  resolution 1920x1200 position 3440 240"
-    '';
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+        swaymsg "output 'Dell Inc. DELL S3422DWG 7PT3KK3'  resolution --custom 3440x1440 position 0 0"
+        swaymsg "output 'Sharp Corporation 0x1515 Unknown'  resolution 1920x1200 position 3440 240"
+      '';
     };
   };
 }
