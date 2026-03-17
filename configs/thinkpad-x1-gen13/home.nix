@@ -163,6 +163,7 @@ in
     wireshark
     xdg-utils
     xorg.xeyes
+    xxd
     yarn
 
     # handmade penguim
