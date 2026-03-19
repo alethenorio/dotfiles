@@ -139,7 +139,6 @@ in
     nmap
     nodejs_20
     nodePackages.node2nix
-    nodePackages.cdktf-cli
     nodePackages.firebase-tools
     openssl
     patchelf
