@@ -211,20 +211,6 @@ in
         };
       };
     };
-    claude-code = {
-      enable = true;
-      package = pkgs-unstable.claude-code;
-      settings = {
-        attribution = {
-          commit = "";
-          pr = "";
-        };
-        includeGitInstructions = false;
-        enabledPlugins = {
-          "gopls-lsp@claude-plugins-official" = true;
-        };
-      };
-    };
     firefox = {
       enable = true;
     };
