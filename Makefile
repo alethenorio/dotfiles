@@ -60,7 +60,7 @@ flake-check-thinkpad-x1-gen13:
 
 .PHONY: flake-update-thinkpad-x1-gen13
 flake-update-thinkpad-x1-gen13:
-	nix flake update '$(FLAKE_THINKPAD_X1_GEN13)'
+	nix flake update --flake '$(FLAKE_THINKPAD_X1_GEN13)'
 
 # =============================================================================
 # harkness-asus-maximus
@@ -88,7 +88,7 @@ flake-check-harkness-asus-maximus:
 
 .PHONY: flake-update-harkness-asus-maximus
 flake-update-harkness-asus-maximus:
-	nix flake update '$(FLAKE_HARKNESS)'
+	nix flake update --flake '$(FLAKE_HARKNESS)'
 
 # =============================================================================
 # thinkpad-x1-gen13-gaming
@@ -116,4 +116,4 @@ flake-check-thinkpad-x1-gen13-gaming:
 
 .PHONY: flake-update-thinkpad-x1-gen13-gaming
 flake-update-thinkpad-x1-gen13-gaming:
-	nix flake update '$(FLAKE_GAMING)'
+	nix flake update --flake '$(FLAKE_GAMING)'
