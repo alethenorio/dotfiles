@@ -126,7 +126,7 @@
         "wheel"
       ];
       hashedPassword = "$6$mZEeKCcpo$41ITgokQpFmMG5f6BQxS628Ne2YJ0aRqmpyyHXjrl9xgXFXc2XOyJlxs2zc5dCEtSXRBWLKHx0UEd4LmLGt0t.";
-      packages = with pkgs; [ ];
+      packages = [ ];
     };
     tautulli = {
       isNormalUser = true;

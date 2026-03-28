@@ -32,6 +32,7 @@
     curl
     discord
     file
+    gnumake
     nerd-fonts.sauce-code-pro
     nerd-fonts.fira-code
     nerd-fonts.noto
