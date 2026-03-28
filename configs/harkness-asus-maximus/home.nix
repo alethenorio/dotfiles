@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   ...
 }:
 
@@ -43,6 +44,28 @@
   ];
 
   programs = {
+    claude-code = {
+      enable = true;
+      package = pkgs-unstable.claude-code;
+      settings = {
+        "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+        attribution = {
+          commit = "";
+          pr = "";
+        };
+        includeGitInstructions = false;
+        enabledPlugins = { };
+        extraKnownMarketplaces = {
+          claude-plugins-official = {
+            source = {
+              source = "git";
+              url = "https://github.com/anthropics/claude-plugins-official.git";
+            };
+          };
+        };
+        # model = "opus[1m]";
+      };
+    };
     firefox = {
       enable = true;
     };
