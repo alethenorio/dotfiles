@@ -1,5 +1,4 @@
-
-{ config, pkgs, lib, ...}:
+{ ... }:
 
 {
   programs = {
@@ -7,24 +6,29 @@
       enable = true;
       shellAliases = {
         g = "git";
+        claude = "claude --enable-auto-mode";
       };
       # Larger bash history (allow 32³ entries; default is 500)
       historySize = 50000000;
       historyFileSize = 50000000;
-      historyControl = [ "ignoredups" "ignorespace" ];
+      historyControl = [
+        "ignoredups"
+        "ignorespace"
+      ];
       # workaround to get the EDITOR env set.
       # Assigning sessionVariables does not work
       initExtra =
-      let
-        prompt = (builtins.readFile  ./.bash_prompt);
-      in ''
-        export EDITOR="vim"
+        let
+          prompt = (builtins.readFile ./.bash_prompt);
+        in
+        ''
+          export EDITOR="vim"
 
-        # Don't clear the screen after quitting a manual page
-        export MANPAGER="less -X";
+          # Don't clear the screen after quitting a manual page
+          export MANPAGER="less -X";
 
-        ${prompt}
-      '';
+          ${prompt}
+        '';
     };
   };
 
