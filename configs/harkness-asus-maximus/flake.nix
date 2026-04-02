@@ -42,6 +42,7 @@
         };
         extraSpecialArgs = {
           inherit pkgs-unstable;
+          dotfilesDir = "/home/alethenorio/code/dotfiles";
         };
         modules = [ ./home.nix ];
       };

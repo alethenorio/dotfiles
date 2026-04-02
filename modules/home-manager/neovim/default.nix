@@ -2,6 +2,7 @@
   config,
   pkgs,
   pkgs-unstable,
+  dotfilesDir,
   ...
 }:
 
@@ -111,7 +112,9 @@ in
         vimPlugins.SchemaStore-nvim
         (vimPlugins.nvim-treesitter.withPlugins (
           # https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/nvim-treesitter/generated.nix
-          plugins: with plugins; [
+          plugins:
+          with plugins;
+          [
             bash
             c
             css
@@ -141,7 +144,8 @@ in
             typescript
             vimdoc
             yaml
-          ] ++ [ tree-sitter-fga ]
+          ]
+          ++ [ tree-sitter-fga ]
         ))
         # vimPlugins.nvim-treesitter.withAllGrammars
         vimPlugins.nvim-treesitter-context
@@ -173,5 +177,6 @@ in
 
   xdg.configFile."nvim/queries/fga".source = "${tree-sitter-fga}/queries";
 
-  home.file.".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink ./lua;
+  home.file.".config/nvim/lua".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/neovim/lua";
 }

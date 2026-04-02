@@ -42,6 +42,7 @@
         pkgs = import nixpkgs {
           inherit system;
           config.allowUnfree = true;
+          dotfilesDir = "/home/alethenorio/code/dotfiles";
         };
         extraSpecialArgs = {
           inherit pkgs-unstable;

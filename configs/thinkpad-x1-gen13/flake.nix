@@ -52,6 +52,7 @@
           inherit pkgs-unstable;
           gws = gws.packages.${system}.default;
           gws-src = gws;
+          dotfilesDir = "/home/alethenorio/code/dotfiles";
         };
         modules = [ ./home.nix ];
       };
