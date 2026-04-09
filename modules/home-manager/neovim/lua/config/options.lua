@@ -44,6 +44,7 @@ vim.opt.splitright = true
 vim.opt.tabstop = indent
 vim.opt.termguicolors = true
 vim.opt.timeoutlen = 300
+vim.opt.autoread = true
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 500
