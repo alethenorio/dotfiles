@@ -44,6 +44,7 @@ in
     ../../modules/home-manager/sway
     ../../modules/home-manager/waybar
     ../../modules/home-manager/bash
+    ../../modules/home-manager/ghostty
     ../../einride/modules/home-manager
   ];
   # Home Manager needs a bit of information about you and the
@@ -82,14 +83,6 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  # When using Ghostty, some dead keys (such as ~ on a Swedish keyboard) don't work
-  # so we need to add something like fcitx5.
-  # See https://github.com/ghostty-org/ghostty/discussions/8899 for more details.
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-  };
 
   home.packages = with pkgs; [
     bc
@@ -227,13 +220,6 @@ in
       extensions = [
         ghdependabot
       ];
-    };
-    ghostty = {
-      enable = true;
-      systemd.enable = true;
-      settings = {
-        theme = "";
-      };
     };
     go = {
       enable = true;

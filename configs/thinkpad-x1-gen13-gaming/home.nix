@@ -9,6 +9,7 @@
     ../../modules/home-manager/git
     ../../modules/home-manager/neovim
     ../../modules/home-manager/bash
+    ../../modules/home-manager/ghostty
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -25,14 +26,6 @@
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
   nixpkgs.config.allowUnfree = true;
-
-  # When using Ghostty, some dead keys (such as ~ on a Swedish keyboard) don't work
-  # so we need to add something like fcitx5.
-  # See https://github.com/ghostty-org/ghostty/discussions/8899 for more details.
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -67,13 +60,6 @@
         prompt = "enabled";
       };
       # gitCredentialHelper.enable = true;
-    };
-    ghostty = {
-      enable = true;
-      systemd.enable = true;
-      settings = {
-        theme = "";
-      };
     };
     go = {
       enable = true;
