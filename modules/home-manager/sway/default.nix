@@ -46,7 +46,112 @@
   programs = {
     wofi = {
       enable = true;
-      settings = { };
+      settings = {
+        width = 600;
+        height = 400;
+        location = "center";
+        show = "drun";
+        prompt = "Search...";
+        filter_rate = 100;
+        allow_markup = true;
+        no_actions = true;
+        halign = "fill";
+        orientation = "vertical";
+        content_halign = "fill";
+        insensitive = true;
+        allow_images = true;
+        image_size = 24;
+        columns = 1;
+      };
+      style = ''
+        /* Catppuccin Mocha palette */
+        @define-color base #1e1e2e;
+        @define-color mantle #181825;
+        @define-color crust #11111b;
+        @define-color surface0 #313244;
+        @define-color surface1 #45475a;
+        @define-color surface2 #585b70;
+        @define-color text #cdd6f4;
+        @define-color subtext0 #a6adc8;
+        @define-color subtext1 #bac2de;
+        @define-color blue #89b4fa;
+        @define-color lavender #b4befe;
+        @define-color sapphire #74c7ec;
+        @define-color mauve #cba6f7;
+        @define-color overlay0 #6c7086;
+
+        * {
+          font-family: "monospace";
+          font-size: 14px;
+        }
+
+        window {
+          margin: 0px;
+          border: 2px solid @surface2;
+          border-radius: 12px;
+          background-color: @base;
+        }
+
+        #input {
+          padding: 10px 16px;
+          margin: 8px;
+          border: none;
+          border-radius: 8px;
+          color: @text;
+          background-color: @surface0;
+          font-size: 16px;
+        }
+
+        #input:focus {
+          border: 2px solid @blue;
+          outline: none;
+        }
+
+        #inner-box {
+          margin: 0px 8px 8px 8px;
+          border: none;
+          background-color: transparent;
+        }
+
+        #outer-box {
+          margin: 0px;
+          padding: 0px;
+          border: none;
+          background-color: transparent;
+        }
+
+        #scroll {
+          margin: 0px;
+          border: none;
+        }
+
+        #text {
+          margin: 0px;
+          padding: 4px 0px;
+          color: @text;
+        }
+
+        #entry {
+          padding: 6px 12px;
+          margin: 2px 0px;
+          border-radius: 8px;
+          background-color: transparent;
+        }
+
+        #entry:selected {
+          background-color: @surface0;
+          outline: none;
+        }
+
+        #entry:selected #text {
+          color: @blue;
+          font-weight: bold;
+        }
+
+        #img {
+          margin-right: 8px;
+        }
+      '';
     };
   };
 
@@ -60,7 +165,7 @@
         modifier = "Mod4";
         terminal = "ghostty";
         # terminal = "foot";
-        menu = "wofi --show drun -i | xargs swaymsg exec --";
+        menu = "wofi | xargs swaymsg exec --";
         fonts = {
           names = [ "pango:monospace" ];
           size = 8.0;
