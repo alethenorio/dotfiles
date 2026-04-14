@@ -27,6 +27,9 @@
   boot.initrd.luks.devices."luks-4b08e31d-e21e-43e9-a4d3-e666b0e43fa2".device =
     "/dev/disk/by-uuid/4b08e31d-e21e-43e9-a4d3-e666b0e43fa2";
 
+  # Enable rasdaemon in other to try and catch freeze/reboot errors so we can
+  # decode BERT records in the future
+  hardware.rasdaemon.enable = true;
   hardware.graphics.enable = true;
   hardware.bluetooth.enable = true;
 
