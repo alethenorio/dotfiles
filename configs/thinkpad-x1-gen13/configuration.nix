@@ -43,21 +43,11 @@
   #   enable = true;
   # };
 
-  # Experimental power management
+  # Power management
   # Disable KDE default power-profiles daemon as it conflicts with auto-cpufreq
   systemd.services.power-profiles-daemon.enable = false;
   services.auto-cpufreq.enable = true;
-  powerManagement.powertop.enable = true;
   services.thermald.enable = true;
-  # tlp will conflict with powertop.
-  # See https://linrunner.de/tlp/faq/ for details on how to configure
-  #services.tlp = {
-  #  enable = true;
-  #  extraConfig = ''
-  #    CPU_SCALING_GOVERNOR_ON_AC=performance
-  #    CPU_SCALING_GOVERNOR_ON_BAT=powersave
-  #  '';
-  #};
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
