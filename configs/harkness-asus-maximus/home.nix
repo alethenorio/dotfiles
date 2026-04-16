@@ -1,6 +1,7 @@
 {
   pkgs,
   pkgs-unstable,
+  claude-code,
   ...
 }:
 
@@ -46,7 +47,7 @@
   programs = {
     claude-code = {
       enable = true;
-      package = pkgs-unstable.claude-code;
+      package = claude-code;
       settings = {
         "$schema" = "https://json.schemastore.org/claude-code-settings.json";
         attribution = {

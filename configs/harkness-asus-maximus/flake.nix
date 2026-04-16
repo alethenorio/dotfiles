@@ -23,6 +23,7 @@
         inherit system;
         config.allowUnfree = true;
       };
+      claude-code = import ../../modules/home-manager/claude-code { inherit pkgs-unstable; };
     in
     {
       nixosConfigurations.harkness = nixpkgs.lib.nixosSystem {
@@ -41,7 +42,7 @@
           config.allowUnfree = true;
         };
         extraSpecialArgs = {
-          inherit pkgs-unstable;
+          inherit pkgs-unstable claude-code;
           dotfilesDir = "/home/alethenorio/code/dotfiles";
         };
         modules = [ ./home.nix ];

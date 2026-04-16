@@ -30,6 +30,7 @@
         inherit system;
         config.allowUnfree = true;
       };
+      claude-code = import ../../modules/home-manager/claude-code { inherit pkgs-unstable; };
     in
     {
       nixosConfigurations.moya = nixpkgs.lib.nixosSystem {
@@ -49,7 +50,7 @@
           config.allowUnfree = true;
         };
         extraSpecialArgs = {
-          inherit pkgs-unstable;
+          inherit pkgs-unstable claude-code;
           gws = gws.packages.${system}.default;
           gws-src = gws;
           dotfilesDir = "/home/alethenorio/code/dotfiles";
