@@ -22,6 +22,22 @@ return {
 			enabled = true,
 			sources = {
 				gh_issue = {},
+				explorer = {
+					win = {
+						list = {
+							keys = {
+								["<PageDown>"] = "list_scroll_down",
+								["<PageUp>"] = "list_scroll_up",
+							},
+						},
+						input = {
+							keys = {
+								["<PageDown>"] = { "list_scroll_down", mode = { "i", "n" } },
+								["<PageUp>"] = { "list_scroll_up", mode = { "i", "n" } },
+							},
+						},
+					},
+				},
 				-- <A-d> in the PR picker toggles hiding/showing draft PRs
 				gh_pr = {
 					toggles = {
