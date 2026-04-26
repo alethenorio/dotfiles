@@ -10,6 +10,7 @@
     ../../modules/home-manager/git
     ../../modules/home-manager/neovim
     ../../modules/home-manager/bash
+    ../../modules/home-manager/ghostty
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
