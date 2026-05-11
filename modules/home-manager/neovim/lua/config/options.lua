@@ -24,6 +24,7 @@ vim.opt.joinspaces = false
 -- vim.opt.laststatus = 0
 vim.opt.list = false
 vim.opt.mouse = "a"
+vim.opt.mousescroll = "ver:1,hor:6"
 vim.opt.number = true
 vim.opt.pumblend = 10
 vim.opt.pumheight = 15

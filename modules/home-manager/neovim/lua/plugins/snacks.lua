@@ -20,24 +20,39 @@ return {
 		notifier = { enabled = true },
 		picker = {
 			enabled = true,
-			sources = {
-				gh_issue = {},
-				explorer = {
-					win = {
-						list = {
-							keys = {
-								["<PageDown>"] = "list_scroll_down",
-								["<PageUp>"] = "list_scroll_up",
-							},
-						},
-						input = {
-							keys = {
-								["<PageDown>"] = { "list_scroll_down", mode = { "i", "n" } },
-								["<PageUp>"] = { "list_scroll_up", mode = { "i", "n" } },
-							},
-						},
+			actions = {
+				list_page_down = function(picker)
+					local list = picker.list
+					local maxtop = math.max(1, list:count() - list:height() + 1)
+					if list.top >= maxtop then
+						return
+					end
+					list:scroll(list.state.scroll)
+				end,
+				list_page_up = function(picker)
+					local list = picker.list
+					if list.top <= 1 then
+						return
+					end
+					list:scroll(-list.state.scroll)
+				end,
+			},
+			win = {
+				list = {
+					keys = {
+						["<PageDown>"] = "list_page_down",
+						["<PageUp>"] = "list_page_up",
 					},
 				},
+				input = {
+					keys = {
+						["<PageDown>"] = { "list_page_down", mode = { "i", "n" } },
+						["<PageUp>"] = { "list_page_up", mode = { "i", "n" } },
+					},
+				},
+			},
+			sources = {
+				gh_issue = {},
 				-- <A-d> in the PR picker toggles hiding/showing draft PRs
 				gh_pr = {
 					toggles = {
