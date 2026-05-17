@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-unstable,
   claude-code,
   ...
 }:
@@ -11,6 +10,7 @@
     ../../modules/home-manager/neovim
     ../../modules/home-manager/bash
     ../../modules/home-manager/ghostty
+    ../../modules/home-manager/pi-coding-agent
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
