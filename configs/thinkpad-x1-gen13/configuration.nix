@@ -222,6 +222,12 @@
     enableSSHSupport = true;
   };
 
+  programs.ssh.extraConfig = ''
+    Host *
+      ServerAliveInterval 30
+      ServerAliveCountMax 3
+  '';
+
   programs.dconf.enable = true;
 
   # This value determines the NixOS release from which the default
