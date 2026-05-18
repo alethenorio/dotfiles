@@ -1,4 +1,9 @@
-{ pkgs-unstable, config, ... }:
+{
+  pkgs-unstable,
+  config,
+  dotfilesDir,
+  ...
+}:
 
 {
   home.packages = with pkgs-unstable; [
@@ -13,4 +18,7 @@
       '';
     })
   ];
+
+  home.file.".pi/agent/models.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/models.json";
 }
