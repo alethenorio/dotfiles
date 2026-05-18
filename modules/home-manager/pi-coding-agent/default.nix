@@ -5,20 +5,31 @@
   ...
 }:
 
-{
-  home.packages = with pkgs-unstable; [
-    (pkgs-unstable.symlinkJoin {
-      name = "pi-coding-agent";
-      buildInputs = [ pkgs-unstable.makeWrapper ];
-      paths = [ pkgs-unstable.pi-coding-agent ];
-      postBuild = ''
-        wrapProgram $out/bin/pi \
-          --set NPM_CONFIG_PREFIX ${config.home.homeDirectory}/.pi/npm/ \
-          --prefix PATH : ${pkgs-unstable.lib.makeBinPath [ pkgs-unstable.nodejs_latest ]}
-      '';
-    })
-  ];
+let
+  homeDir = config.home.homeDirectory;
+  workspaceDir = "${homeDir}/pi-workspace";
+  nodePath = pkgs-unstable.lib.makeBinPath [ pkgs-unstable.nodejs_latest ];
 
-  home.file.".pi/agent/models.json".source =
+  pi = pkgs-unstable.writeShellScriptBin "pi" ''
+    WORKDIR="$(pwd)"
+    exec ${pkgs-unstable.bubblewrap}/bin/bwrap \
+      --ro-bind / / \
+      --dev /dev \
+      --proc /proc \
+      --tmpfs /tmp \
+      --bind "${workspaceDir}" "${workspaceDir}" \
+      --bind "$WORKDIR" "$WORKDIR" \
+      --chdir "$WORKDIR" \
+      --share-net \
+      --setenv HOME "${workspaceDir}" \
+      --setenv NPM_CONFIG_PREFIX "${workspaceDir}/.pi/npm/" \
+      --setenv PATH "${nodePath}:$PATH" \
+      -- ${pkgs-unstable.pi-coding-agent}/bin/pi "$@"
+  '';
+in
+{
+  home.packages = [ pi ];
+
+  home.file."pi-workspace/.pi/agent/models.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/models.json";
 }
