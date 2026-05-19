@@ -3,7 +3,9 @@
   pkgs-unstable,
   gws,
   gws-src,
+  config,
   lib,
+  dotfilesDir,
   ...
 }:
 let
@@ -276,5 +278,8 @@ in
         swaymsg "output 'Sharp Corporation 0x1515 Unknown'  resolution 1920x1200 position 3440 240"
       '';
     };
+    ".pi/agent/AGENTS.md".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/CODING_AGENTS.md";
   };
+
 }
