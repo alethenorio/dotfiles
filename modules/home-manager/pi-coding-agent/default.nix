@@ -19,6 +19,8 @@ let
       --tmpfs /tmp \
       --bind "${workspaceDir}" "${workspaceDir}" \
       --bind "$WORKDIR" "$WORKDIR" \
+      --bind "${homeDir}/.pi" "${workspaceDir}/.pi" \
+      --bind "${homeDir}/.config/gcloud" "${workspaceDir}/.config/gcloud" \
       --chdir "$WORKDIR" \
       --share-net \
       --setenv HOME "${workspaceDir}" \
@@ -29,4 +31,7 @@ let
 in
 {
   home.packages = [ pi ];
+
+  home.file.".pi/agent/extensions/vertex-anthropic".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/extensions/vertex-anthropic";
 }

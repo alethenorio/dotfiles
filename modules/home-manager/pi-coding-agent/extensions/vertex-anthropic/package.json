@@ -1,0 +1,8 @@
+{
+  "name": "pi-vertex-anthropic",
+  "version": "1.0.0",
+  "description": "Pi extension for Claude via Google Cloud Vertex AI",
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}
