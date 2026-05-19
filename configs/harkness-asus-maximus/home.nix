@@ -82,4 +82,7 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  home.file."pi-workspace/.pi/agent/models.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/models.json";
 }

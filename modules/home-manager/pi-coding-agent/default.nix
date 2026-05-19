@@ -29,7 +29,4 @@ let
 in
 {
   home.packages = [ pi ];
-
-  home.file."pi-workspace/.pi/agent/models.json".source =
-    config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/models.json";
 }
