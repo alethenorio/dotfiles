@@ -1,0 +1,8 @@
+{
+  "name": "pi-status-line",
+  "version": "1.0.0",
+  "description": "Status line for Pi showing context usage, tokens, and cost",
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}

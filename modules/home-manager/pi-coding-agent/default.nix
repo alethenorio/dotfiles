@@ -37,4 +37,7 @@ in
 
   home.file.".pi/agent/extensions/vertex-anthropic".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/extensions/vertex-anthropic";
+
+  home.file.".pi/agent/extensions/status-line".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/modules/home-manager/pi-coding-agent/extensions/status-line";
 }
