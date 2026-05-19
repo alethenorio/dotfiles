@@ -10,6 +10,9 @@ let
   workspaceDir = "${homeDir}/pi-workspace";
   nodePath = pkgs-unstable.lib.makeBinPath [ pkgs-unstable.nodejs_latest ];
 
+  # Use our overridden pi-coding-agent with the latest version
+  pi-coding-agent = import ./package.nix { inherit pkgs-unstable; };
+
   pi = pkgs-unstable.writeShellScriptBin "pi" ''
     WORKDIR="$(pwd)"
     exec ${pkgs-unstable.bubblewrap}/bin/bwrap \
@@ -26,7 +29,7 @@ let
       --setenv HOME "${workspaceDir}" \
       --setenv NPM_CONFIG_PREFIX "${workspaceDir}/.pi/npm/" \
       --setenv PATH "${nodePath}:$PATH" \
-      -- ${pkgs-unstable.pi-coding-agent}/bin/pi "$@"
+      -- ${pi-coding-agent}/bin/pi "$@"
   '';
 in
 {
