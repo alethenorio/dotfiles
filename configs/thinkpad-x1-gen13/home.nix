@@ -46,6 +46,7 @@ in
     ../../modules/home-manager/bash
     ../../modules/home-manager/ghostty
     ../../einride/modules/home-manager
+    ../../modules/home-manager/pi-coding-agent
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
