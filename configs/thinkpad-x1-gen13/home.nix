@@ -107,13 +107,16 @@ in
     git
     geminiCliNodePackage."@google/gemini-cli"
     google-chrome
-    (pkgs-unstable.google-cloud-sdk.withExtraComponents [
-      pkgs-unstable.google-cloud-sdk.components.skaffold
-      pkgs-unstable.google-cloud-sdk.components.minikube
-      pkgs-unstable.google-cloud-sdk.components.kubectl
-      pkgs-unstable.google-cloud-sdk.components.log-streaming
-      pkgs-unstable.google-cloud-sdk.components.cloud-run-proxy
-      pkgs-unstable.google-cloud-sdk.components.cloud-spanner-emulator
+    # TODO: switch back to pkgs-unstable once NixOS/nixpkgs#527528 is merged.
+    # 570.0.0 in unstable pulls in bundled-python3 via withExtraComponents which
+    # fails auto-patchelf; the stable version (548.0.0) is unaffected.
+    (pkgs.google-cloud-sdk.withExtraComponents [
+      pkgs.google-cloud-sdk.components.skaffold
+      pkgs.google-cloud-sdk.components.minikube
+      pkgs.google-cloud-sdk.components.kubectl
+      pkgs.google-cloud-sdk.components.log-streaming
+      pkgs.google-cloud-sdk.components.cloud-run-proxy
+      pkgs.google-cloud-sdk.components.cloud-spanner-emulator
     ])
     gws
     gnumake
