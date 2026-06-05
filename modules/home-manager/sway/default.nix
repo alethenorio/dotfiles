@@ -215,7 +215,7 @@
         #  };
         #};
         assigns = {
-          "4" = [ { class = "Slack"; } ];
+          "4" = [ { app_id = "Slack"; } ];
         };
         # workspaceOutputAssign = [
         #   { output = "HEADLESS-1"; workspace = "0"; }
