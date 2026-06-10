@@ -172,6 +172,7 @@
 
   # Enable docker
   virtualisation.docker.enable = true;
+  virtualisation.docker.package = pkgs.docker_29;
   virtualisation.libvirtd.enable = true;
 
   # makes /lib64/ld-linux-x86-64.so.2 the third FHS exception after /bin/sh and /usr/bin/env

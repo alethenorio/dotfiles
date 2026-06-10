@@ -197,6 +197,7 @@
 
   # Enable docker
   virtualisation.docker.enable = true;
+  virtualisation.docker.package = pkgs.docker_29;
   virtualisation.libvirtd.enable = true;
 
   # Enable ARM emulation through QEMU
