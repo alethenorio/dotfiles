@@ -22,6 +22,10 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  # Cap kept generations so the 1 GB ESP doesn't fill up. systemd-initrd images
+  # are larger than the old scripted initrds; the installer prunes generations
+  # beyond this limit from /boot before copying new ones.
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.luks.devices."luks-4b08e31d-e21e-43e9-a4d3-e666b0e43fa2".device =
