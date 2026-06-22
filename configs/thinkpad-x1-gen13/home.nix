@@ -9,7 +9,6 @@
   ...
 }:
 let
-  geminiCliNodePackage = (pkgs.callPackage ../../modules/home-manager/gemini-cli/default.nix { });
   # gwsSkillsPath = "${gws-src}/skills";
   # gwsSkillLinks = lib.mapAttrs' (name: _: {
   #   name = ".claude/skills/${name}";
@@ -105,7 +104,7 @@ in
     gh
     gimp
     git
-    geminiCliNodePackage."@google/gemini-cli"
+    pkgs-unstable.gemini-cli
     google-chrome
     # TODO: switch back to pkgs-unstable once NixOS/nixpkgs#527528 is merged.
     # 570.0.0 in unstable pulls in bundled-python3 via withExtraComponents which
@@ -136,9 +135,8 @@ in
     nethogs
     nix-tree
     nmap
-    nodejs_20
-    nodePackages.node2nix
-    nodePackages.firebase-tools
+    nodejs_22
+    firebase-tools
     openssl
     patchelf
     powertop
@@ -160,7 +158,7 @@ in
     wget
     wireshark
     xdg-utils
-    xorg.xeyes
+    xeyes
     xxd
     yarn
 
@@ -186,7 +184,7 @@ in
           --add-flags "--enable-features=WebRTCPipeWireCapturer %U"
         '';
       });
-      yarn = super.yarn.override { nodejs = pkgs.nodejs_20; };
+      yarn = super.yarn.override { nodejs = pkgs.nodejs_22; };
     })
   ];
 
@@ -212,6 +210,9 @@ in
     };
     firefox = {
       enable = true;
+      # Adopt the 26.05 XDG default. The existing profile must be moved from
+      # ~/.mozilla/firefox to ~/.config/mozilla/firefox (done manually, Firefox closed).
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
     };
     foot = {
       enable = true;
@@ -242,6 +243,9 @@ in
     # See https://inconclusive.medium.com/sharing-passwords-with-git-gpg-and-pass-628c2db2a9de for initialization
     password-store = {
       enable = true;
+      # Adopt the 26.05 default (no PASSWORD_STORE_DIR override -> pass uses
+      # ~/.password-store). No existing store on disk, so nothing to migrate.
+      settings = { };
     };
     vscode = {
       enable = true;

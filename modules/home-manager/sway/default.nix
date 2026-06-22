@@ -260,8 +260,8 @@
             "--locked XF86AudioRaiseVolume" = "exec --no-startup-id pamixer -i 5";
             "--locked XF86AudioLowerVolume" = "exec --no-startup-id pamixer -d 5";
             "--locked XF86AudioMute" = "exec --no-startup-id pamixer -t";
-            "XF86MonBrightnessUp" = "exec sudo light -A 10";
-            "XF86MonBrightnessDown" = "exec sudo light -U 10";
+            "XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
+            "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
             # Screenshot the current focused monitor
             "--release Print" =
               "exec 'grim -o \"$(swaymsg -t get_outputs | jq -r \".[] | select(.focused) | .name\")\" \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\" && xdg-open \"/home/alethenorio/pictures/screenshots/$(date +%d%m%Y_%H%M_%s).png\"'";

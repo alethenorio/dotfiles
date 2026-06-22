@@ -73,6 +73,10 @@ in
       # package = unstable.pkgs.neovim-unwrapped;
       viAlias = true;
       vimAlias = true;
+      # Adopt the 26.05 defaults: this config is Lua-based and uses no Ruby/Python
+      # remote providers, so disabling them shrinks the closure.
+      withRuby = false;
+      withPython3 = false;
       # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/applications/editors/vim/plugins/generated.nix
       plugins = [
         # lazy-nix-helper-nvim
@@ -165,7 +169,7 @@ in
         vimPlugins.which-key-nvim
         # which-key-nvim
       ];
-      extraLuaConfig = ''
+      initLua = ''
         vim.g.nix_packages_path = "${pkgs.vimUtils.packDir config.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start"
         require("config/options")
         require("config/autocmds")

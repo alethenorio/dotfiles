@@ -132,8 +132,10 @@
     enable = true;
   };
 
-  # Control screen brightness
-  programs.light.enable = true;
+  # Control screen brightness. programs.light was removed in 26.05; brightnessctl
+  # ships udev rules that grant the "video" group write access to the backlight,
+  # so no setuid wrapper or sudo is needed (see Sway keybinds).
+  services.udev.packages = [ pkgs.brightnessctl ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -153,6 +155,7 @@
       "dialout"
       "plugdev"
       "adbusers"
+      "video" # brightnessctl backlight control (replaces programs.light)
     ];
   };
 
@@ -180,6 +183,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    brightnessctl
     exfat
     gparted
     jwt-cli
