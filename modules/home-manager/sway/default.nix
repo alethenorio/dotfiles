@@ -215,7 +215,9 @@
         #  };
         #};
         assigns = {
-          "4" = [ { app_id = "Slack"; } ];
+          # Slack's app_id changed from "Slack" to "slack" in newer releases;
+          # match case-insensitively so the assign works across versions/hosts.
+          "4" = [ { app_id = "(?i)^slack$"; } ];
         };
         # workspaceOutputAssign = [
         #   { output = "HEADLESS-1"; workspace = "0"; }
