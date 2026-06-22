@@ -1,6 +1,8 @@
 {
   pkgs,
   claude-code,
+  config,
+  dotfilesDir,
   ...
 }:
 
