@@ -23,6 +23,10 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  # Cap kept generations so the ESP doesn't fill up (systemd-initrd images are
+  # larger than the old scripted initrds; the installer prunes beyond this before
+  # copying new ones).
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "harkness"; # Define your hostname.
@@ -101,8 +105,11 @@
     # accessible via `nvidia-settings`.
     nvidiaSettings = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    # This GPU is a GTX 980 (Maxwell). As of NixOS 26.05 the default/production
+    # NVIDIA drivers (595+) dropped support for Maxwell and older, so pin the
+    # legacy_580 branch (580.x), which still supports it. Note: `open` must stay
+    # false — the open kernel module only supports Turing and newer.
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 
   # Enable sound with pipewire.
