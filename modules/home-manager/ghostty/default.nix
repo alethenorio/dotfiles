@@ -16,7 +16,7 @@
       theme = "";
       copy-on-select = "clipboard";
       scrollback-limit = 100000000000;
-      app-notifications = "config-reload";
+      app-notifications = "config-reload,no-clipboard-copy";
     };
   };
 }
