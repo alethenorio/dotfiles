@@ -140,11 +140,6 @@ in
     openssl
     patchelf
     powertop
-    # (python311.withPackages (p: [
-    #   grpcio
-    # ]))
-    (python311.withPackages (ps: with ps; [ grpcio-tools ]))
-    # (python311.withPackages python-packages)
     qimgv
     slack
     speedtest-cli
