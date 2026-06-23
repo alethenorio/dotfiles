@@ -132,6 +132,15 @@
     };
   };
 
+  # xdg-desktop-portal-wlr 0.8.2 (in 25.05) uses an "auto" chooser that probes
+  # a few "chooser" tools in order such as mew/fuzzel/bemenu/wmenu/wofi/rofi.
+  # The service runs with a restricted PATH that excludes the user profile, so
+  # wofi must be added explicitly here even though it might be already installed
+  # as a user package.
+  systemd.user.services.xdg-desktop-portal-wlr = {
+    path = [ pkgs.wofi ];
+  };
+
   programs.wireshark = {
     enable = true;
   };
