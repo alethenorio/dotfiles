@@ -42,10 +42,14 @@
   # the one configured at user level (through home-manager) is the one that gets used.
   programs.sway.enable = true;
 
-  # Disable ly to better understand whether it causes performance issues
-  # services.displayManager.ly = {
-  #   enable = true;
-  # };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd sway";
+      };
+    };
+  };
 
   # Power management
   # Disable KDE default power-profiles daemon as it conflicts with auto-cpufreq
