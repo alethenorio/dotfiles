@@ -8,7 +8,6 @@
   pkgs-unstable,
   ...
 }:
-
 {
   imports = [
     # Include the results of the hardware scan.
@@ -277,8 +276,7 @@
 
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
-    package = pkgs-unstable.ollama;
+    package = pkgs-unstable.ollama-cuda;
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?
