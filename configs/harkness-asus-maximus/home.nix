@@ -33,7 +33,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    bitwarden-desktop
+    # bitwarden-desktop is disabled because it pulls a version of electron marked as unsafe
+    # bitwarden-desktop
     curl
     discord
     file
@@ -72,6 +73,9 @@
     };
     firefox = {
       enable = true;
+      # Adopt the 26.05 XDG default. The existing profile must be moved from
+      # ~/.mozilla/firefox to ~/.config/mozilla/firefox (done manually, Firefox closed).
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
     };
     gh = {
       enable = true;
