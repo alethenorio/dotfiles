@@ -93,6 +93,7 @@ in
   };
 
   home.packages = with pkgs; [
+    age
     bc
     binutils
     pkgs-unstable.code-cursor
@@ -126,6 +127,7 @@ in
     gws
     gnumake
     gnupg
+    gopass
     graphviz
     hwinfo
     htop
