@@ -111,7 +111,6 @@ in
     gh
     gimp
     git
-    pkgs-unstable.gemini-cli
     google-chrome
     # TODO: switch back to pkgs-unstable once NixOS/nixpkgs#527528 is merged.
     # 570.0.0 in unstable pulls in bundled-python3 via withExtraComponents which
