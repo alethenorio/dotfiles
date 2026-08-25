@@ -31,6 +31,24 @@
   boot.initrd.luks.devices."luks-4b08e31d-e21e-43e9-a4d3-e666b0e43fa2".device =
     "/dev/disk/by-uuid/4b08e31d-e21e-43e9-a4d3-e666b0e43fa2";
 
+  # Compressed swap in RAM. The working set regularly exceeds the 30G of RAM
+  # and paging back in from the LUKS-encrypted disk partition stalls the whole
+  # desktop for seconds; zram absorbs that pressure at memory speed. The disk
+  # partition remains as lower-priority (-1) overflow.
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    # Uncompressed capacity of the zram device; actual RAM used is only the
+    # compressed size (~1/3), so this does not reserve 100% of RAM.
+    memoryPercent = 100;
+  };
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 180; # swapping to zram is cheaper than dropping file cache
+    "vm.page-cluster" = 0; # no swap readahead; zram is random-access
+    "vm.watermark_boost_factor" = 0; # reclaim boost on fragmentation causes stalls
+    "vm.watermark_scale_factor" = 125; # start background reclaim earlier
+  };
+
   # Enable rasdaemon in other to try and catch freeze/reboot errors so we can
   # decode BERT records in the future
   hardware.rasdaemon.enable = true;
