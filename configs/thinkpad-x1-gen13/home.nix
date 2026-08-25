@@ -216,6 +216,39 @@ in
       # Adopt the 26.05 XDG default. The existing profile must be moved from
       # ~/.mozilla/firefox to ~/.config/mozilla/firefox (done manually, Firefox closed).
       configPath = "${config.xdg.configHome}/mozilla/firefox";
+      # Keep Firefox's memory footprint down. Set via enterprise policy so all
+      # profiles are covered without home-manager taking over profiles.ini.
+      # Status = "default" keeps the prefs overridable in about:config.
+      policies.Preferences = {
+        # Fission spawns up to 4 processes per site; 1 keeps site isolation
+        # with far fewer multi-GB "Isolated Web Co" processes.
+        "dom.ipc.processCount.webIsolated" = {
+          Value = 1;
+          Status = "default";
+        };
+        # Cap regular (non-isolated) web content processes (default 8).
+        "dom.ipc.processCount" = {
+          Value = 4;
+          Status = "default";
+        };
+        # Pages kept alive in memory for back/forward navigation; the default
+        # scales with RAM (8 at 30G).
+        "browser.sessionhistory.max_total_viewers" = {
+          Value = 2;
+          Status = "default";
+        };
+        # Cap the in-memory cache at 256 MiB instead of RAM-scaled auto sizing.
+        "browser.cache.memory.capacity" = {
+          Value = 262144;
+          Status = "default";
+        };
+        # Unload background tabs under memory pressure (default on Linux since
+        # Firefox 121; set explicitly so it survives default changes).
+        "browser.tabs.unloadOnLowMemory" = {
+          Value = true;
+          Status = "default";
+        };
+      };
     };
     foot = {
       enable = true;
