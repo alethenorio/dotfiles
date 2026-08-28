@@ -47,6 +47,7 @@ in
     file
     gcc
     gnumake
+    google-chrome
     nerd-fonts.sauce-code-pro
     nerd-fonts.fira-code
     nerd-fonts.noto
