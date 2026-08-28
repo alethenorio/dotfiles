@@ -45,6 +45,7 @@ in
     curl
     discord
     file
+    gcc
     gnumake
     nerd-fonts.sauce-code-pro
     nerd-fonts.fira-code
