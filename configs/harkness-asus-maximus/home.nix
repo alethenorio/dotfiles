@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   claude-code,
   claude-desktop,
   config,
@@ -7,6 +8,9 @@
   ...
 }:
 
+let
+  claudeline = import ../../modules/home-manager/claudeline { inherit pkgs-unstable; };
+in
 {
   imports = [
     ../../modules/home-manager/git
@@ -37,6 +41,7 @@
     # bitwarden-desktop is disabled because it pulls a version of electron marked as unsafe
     # bitwarden-desktop
     claude-desktop
+    claudeline
     curl
     discord
     file
@@ -69,6 +74,10 @@
               url = "https://github.com/anthropics/claude-plugins-official.git";
             };
           };
+        };
+        statusLine = {
+          type = "command";
+          command = "claudeline";
         };
         # model = "opus[1m]";
       };
