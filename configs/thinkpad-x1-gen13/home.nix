@@ -3,6 +3,7 @@
   pkgs-unstable,
   gws,
   gws-src,
+  claude-desktop,
   config,
   lib,
   dotfilesDir,
@@ -96,6 +97,7 @@ in
     age
     bc
     binutils
+    claude-desktop
     pkgs-unstable.code-cursor
     curl
     dejavu_fonts
@@ -245,6 +247,16 @@ in
         # Firefox 121; set explicitly so it survives default changes).
         "browser.tabs.unloadOnLowMemory" = {
           Value = true;
+          Status = "default";
+        };
+        # Without this, Firefox's own internal handler check for the
+        # claude:// scheme fails ("Prevented navigation to claude://...
+        # due to an unknown protocol" in the console) even though xdg-mime
+        # has a valid default set — Claude Desktop's Google-login handoff
+        # silently does nothing. Setting expose to false skips Firefox's
+        # internal check and hands the URI straight to the OS default.
+        "network.protocol-handler.expose.claude" = {
+          Value = false;
           Status = "default";
         };
       };

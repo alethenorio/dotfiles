@@ -9,6 +9,10 @@
       url = "github:googleworkspace/cli";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    claude-desktop = {
+      url = "github:aaddrick/claude-desktop-debian";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +25,7 @@
       nixpkgs-unstable,
       nixos-hardware,
       gws,
+      claude-desktop,
       home-manager,
       ...
     }:
@@ -31,6 +36,7 @@
         config.allowUnfree = true;
       };
       claude-code = import ../../modules/home-manager/claude-code { inherit pkgs-unstable; };
+      claude-desktop-pkg = claude-desktop.packages.${system}.claude-desktop-fhs;
     in
     {
       nixosConfigurations.moya = nixpkgs.lib.nixosSystem {
@@ -51,6 +57,7 @@
         };
         extraSpecialArgs = {
           inherit pkgs-unstable claude-code;
+          claude-desktop = claude-desktop-pkg;
           gws = gws.packages.${system}.default;
           gws-src = gws;
           dotfilesDir = "/home/alethenorio/code/dotfiles";

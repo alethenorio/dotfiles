@@ -1,6 +1,7 @@
 {
   pkgs,
   claude-code,
+  claude-desktop,
   config,
   dotfilesDir,
   ...
@@ -35,6 +36,7 @@
   home.packages = with pkgs; [
     # bitwarden-desktop is disabled because it pulls a version of electron marked as unsafe
     # bitwarden-desktop
+    claude-desktop
     curl
     discord
     file
@@ -76,6 +78,19 @@
       # Adopt the 26.05 XDG default. The existing profile must be moved from
       # ~/.mozilla/firefox to ~/.config/mozilla/firefox (done manually, Firefox closed).
       configPath = "${config.xdg.configHome}/mozilla/firefox";
+      # Without this, Firefox's own internal handler check for the
+      # claude:// scheme fails ("Prevented navigation to claude://...
+      # due to an unknown protocol" in the console) even though xdg-mime
+      # has a valid default set — Claude Desktop's Google-login handoff
+      # silently does nothing. Setting expose to false skips Firefox's
+      # internal check and hands the URI straight to the OS default.
+      # Status = "default" keeps it overridable in about:config.
+      policies.Preferences = {
+        "network.protocol-handler.expose.claude" = {
+          Value = false;
+          Status = "default";
+        };
+      };
     };
     gh = {
       enable = true;
