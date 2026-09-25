@@ -7,8 +7,8 @@
 #   nix hash convert --hash-algo sha256 --to sri <hash>
 { pkgs-unstable }:
 let
-  version = "2.1.220";
-  hash = "sha256-Z09h8g/zBvMQDPkgDkw2xLcCeLW+8ohFSYGblCqJyGM=";
+  version = "2.1.284";
+  hash = "sha256-XNkKq9g/ihUTbDWqN7sdkrNImTVzMWZD3D/k4Er7+I8=";
 in
 pkgs-unstable.claude-code-bin.overrideAttrs (old: {
   inherit version;
