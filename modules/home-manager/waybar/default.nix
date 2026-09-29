@@ -5,6 +5,10 @@
   programs = {
     waybar = {
       enable = true;
+      systemd = {
+        enable = true;
+        targets = [ "sway-session.target" ];
+      };
       settings = [{
         layer = "top";
         position = "bottom";

@@ -189,17 +189,8 @@
             pointer_accel = "0.5";
           };
         };
-        bars = [
-          {
-            position = "bottom";
-            command = "waybar";
-            statusCommand = "while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done";
-            fonts = {
-              names = [ "pango:monospace" ];
-              size = 12.0;
-            };
-          }
-        ];
+        # Waybar is started and restarted on failure by its systemd user unit
+        bars = [ ];
         startup = [
           { command = "slack"; }
           # { command = "swayidle -w timeout 300 'swaymsg \"output * dpms off\"' resume 'swaymsg \"output * dpms on\"' timeout 360 'swaylock -f -c 000000' before-sleep 'swaylock -f -c 000000'"; }
