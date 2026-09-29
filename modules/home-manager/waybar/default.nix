@@ -23,9 +23,6 @@
         ];
         modules-right = [
           "custom/left-arrow-dark"
-          "sway/language"
-          "custom/left-arrow-light"
-          "custom/left-arrow-dark"
           "network"
           "custom/left-arrow-light"
           "custom/left-arrow-dark"
@@ -129,9 +126,6 @@
               activated = "";
               deactivated = "";
           };
-        };
-        "sway/language" = {
-          format = "{short}-{variant}";
         };
         "custom/notification" = {
           tooltip = false;
