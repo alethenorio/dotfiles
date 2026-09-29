@@ -221,12 +221,6 @@ in
       # profiles are covered without home-manager taking over profiles.ini.
       # Status = "default" keeps the prefs overridable in about:config.
       policies.Preferences = {
-        # Fission spawns up to 4 processes per site; 1 keeps site isolation
-        # with far fewer multi-GB "Isolated Web Co" processes.
-        "dom.ipc.processCount.webIsolated" = {
-          Value = 1;
-          Status = "default";
-        };
         # Cap regular (non-isolated) web content processes (default 8).
         "dom.ipc.processCount" = {
           Value = 4;
