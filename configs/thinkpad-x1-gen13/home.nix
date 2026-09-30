@@ -201,6 +201,8 @@ in
   };
 
   programs = {
+    # Machine-specific override on top of the shared einride settings.
+    claude-code.settings.preferredNotifChannel = "notifications_disabled";
     alacritty = {
       enable = true;
       settings = {
