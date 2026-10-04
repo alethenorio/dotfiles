@@ -111,6 +111,22 @@ in
       enable = true;
       package = pkgs.go_1_25;
     };
+    plasma = {
+      enable = true;
+      shortcuts = {
+        # Konsole and Ghostty both ship X-KDE-Shortcuts=Ctrl+Alt+T as their
+        # default global shortcut; KDE's conflict resolution had silently
+        # given it to Konsole. Disable Konsole's claim, and bind Ghostty's
+        # explicitly (not just relying on its own default) so an explicit
+        # claim always wins over any other app's default, regardless of
+        # install order.
+        "services/org.kde.konsole.desktop"._launch = "none";
+        "services/com.mitchellh.ghostty.desktop"._launch = [
+          "Ctrl+Alt+T"
+          "Ctrl+Alt+T"
+        ];
+      };
+    };
   };
 
   # Not using xdg.mimeApps here: it takes full ownership of mimeapps.list as

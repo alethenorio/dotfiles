@@ -12,6 +12,11 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -20,6 +25,7 @@
       nixpkgs-unstable,
       claude-desktop,
       home-manager,
+      plasma-manager,
       ...
     }:
     let
@@ -52,7 +58,10 @@
           claude-desktop = claude-desktop-pkg;
           dotfilesDir = "/home/alethenorio/code/dotfiles";
         };
-        modules = [ ./home.nix ];
+        modules = [
+          plasma-manager.homeModules.plasma-manager
+          ./home.nix
+        ];
       };
     };
 }
