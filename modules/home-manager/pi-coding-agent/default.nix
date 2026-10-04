@@ -10,8 +10,7 @@ let
   workspaceDir = "${homeDir}/pi-workspace";
   nodePath = pkgs-unstable.lib.makeBinPath [ pkgs-unstable.nodejs_latest ];
 
-  # Use our overridden pi-coding-agent with the latest version
-  pi-coding-agent = import ./package.nix { inherit pkgs-unstable; };
+  pi-coding-agent = pkgs-unstable.pi-coding-agent;
 
   pi = pkgs-unstable.writeShellScriptBin "pi" ''
     WORKDIR="$(pwd)"
