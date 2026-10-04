@@ -223,20 +223,6 @@
         '';
         dontInstall = true;
       })
-      (pkgs.stdenv.mkDerivation {
-        name = "Traktv.bundle";
-        src = pkgs.fetchFromGitHub {
-          owner = "trakt";
-          repo = "Plex-Trakt-Scrobbler";
-          rev = "aeb0bfbe62fad4b06c164f1b95581da7f35dce0b";
-          sha256 = "058691ciy1c94icw91074im24a3gkc1rq9kz67cbzwb9h9ili70q";
-        };
-        buildPhase = ''
-          mkdir -p $out
-          cp -r ./Trakttv.bundle/* $out/
-        '';
-        dontInstall = true;
-      })
     ];
     #user = "plex";
   };
