@@ -5,6 +5,7 @@
   claude-desktop,
   config,
   dotfilesDir,
+  lib,
   ...
 }:
 
@@ -111,6 +112,23 @@ in
       package = pkgs.go_1_25;
     };
   };
+
+  # Not using xdg.mimeApps here: it takes full ownership of mimeapps.list as
+  # a read-only store symlink, which breaks apps that self-register their own
+  # URL scheme handlers into that file at runtime.
+  # xdg-settings only touches the "default browser" keys, leaving the rest of
+  # the file writable.
+  #
+  # xdg-settings verifies each scheme (http, https, text/html) by reading
+  # it back after writing, and under this KDE session something (most
+  # likely Chrome reasserting itself) sometimes resets x-scheme-handler/http
+  # back to Chrome between the write and the verification read, failing
+  # that one check even though https/text-html land fine. Don't let that
+  # flakiness fail the whole activation.
+  home.activation.setDefaultBrowser = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    PATH="${pkgs.kdePackages.qtbase}/bin:$PATH" \
+      $DRY_RUN_CMD ${pkgs.xdg-utils}/bin/xdg-settings set default-web-browser firefox.desktop || true
+  '';
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
