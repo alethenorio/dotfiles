@@ -91,6 +91,9 @@ in
     enable = true;
     enableBashIntegration = true;
     package = pkgs-unstable.mise;
+    # gh keeps its token in the keyring, which mise's own gh token lookup
+    # (github.gh_cli_tokens) cannot read, so ask gh for it instead.
+    globalConfig.settings.github.credential_command = "gh auth token";
   };
 
   home.packages = with pkgs; [
