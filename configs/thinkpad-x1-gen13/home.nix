@@ -276,7 +276,7 @@ in
     };
     go = {
       enable = true;
-      package = pkgs-unstable.go_1_25;
+      package = pkgs-unstable.go_1_27;
       env = {
         GOPRIVATE = "github.com/einride,go.einride.tech";
         GOTOOLCHAIN = "go1.25.5+auto";
